@@ -1,0 +1,469 @@
+{
+  "groups": [
+    {
+      "unique": "story",
+      "name": "Story",
+      "bgTexture": "groups_bg.stone",
+      "icon": {
+        "id": 1
+      }
+    },
+    {
+      "unique": "nether",
+      "name": "Nether",
+      "bgTexture": "groups_bg.nether",
+      "icon": {
+        "id": 87
+      }
+    }
+  ],
+  "achievements": {
+    "story": [
+      {
+        "unique": "root",
+        "name": {
+          "text": "Minecraft",
+          "translate": "achievements.story.root.title"
+        },
+        "description": {
+          "text": "The heart and story of the game",
+          "translate": "achievements.story.root.description"
+        },
+        "column": 1,
+        "row": 2,
+        "item": {
+          "id": 2
+        }
+      },
+      {
+        "unique": "mine_stone",
+        "name": {
+          "text": "Stone Age",
+          "translate": "achievements.story.mine_stone.title"
+        },
+        "description": {
+          "text": "Mine stone with your new pickaxe",
+          "translate": "achievements.story.mine_stone.description"
+        },
+        "parent": {
+          "unique": "root"
+        },
+        "strongDependence": true,
+        "column": 2,
+        "row": 2,
+        "item": {
+          "id": 270
+        }
+      },
+      {
+        "unique": "upgrade_tools",
+        "name": {
+          "text": "Getting an Upgrade",
+          "translate": "achievements.story.upgrade_tools.title"
+        },
+        "description": {
+          "text": "Construct a better pickaxe",
+          "translate": "achievements.story.upgrade_tools.description"
+        },
+        "parent": {
+          "unique": "mine_stone"
+        },
+        "strongDependence": true,
+        "column": 3,
+        "row": 2,
+        "item": {
+          "id": 274
+        }
+      },
+      {
+        "unique": "obtain_armor",
+        "name": {
+          "text": "Suit Up",
+          "translate": "achievements.story.obtain_armor.title"
+        },
+        "description": {
+          "text": "Protect yourself with a piece of iron armor",
+          "translate": "achievements.story.obtain_armor.description"
+        },
+        "parent": {
+          "unique": "upgrade_tools"
+        },
+        "strongDependence": true,
+        "column": 4,
+        "row": 0,
+        "item": {
+          "id": 307
+        }
+      },
+      {
+        "unique": "lava_bucket",
+        "name": {
+          "text": "Hot Stuff",
+          "translate": "achievements.story.lava_bucket.title"
+        },
+        "description": {
+          "text": "Drain a bucket with lava",
+          "translate": "achievements.story.lava_bucket.description"
+        },
+        "parent": {
+          "unique": "upgrade_tools"
+        },
+        "strongDependence": true,
+        "column": 4,
+        "row": 1,
+        "item": {
+          "id": 325,
+          "data": 10
+        }
+      },
+      {
+        "unique": "iron_tools",
+        "name": {
+          "text": "Isn't It Iron Pick",
+          "translate": "achievements.story.iron_tools.title"
+        },
+        "description": {
+          "text": "Upgrade your pickaxe",
+          "translate": "achievements.story.iron_tools.description"
+        },
+        "parent": {
+          "unique": "upgrade_tools"
+        },
+        "strongDependence": true,
+        "column": 4,
+        "row": 2,
+        "item": {
+          "id": 257
+        }
+      },
+      {
+        "unique": "mine_diamond",
+        "name": {
+          "text": "Diamonds!",
+          "translate": "achievements.story.mine_diamond.title"
+        },
+        "description": {
+          "text": "Acquire diamonds",
+          "translate": "achievements.story.mine_diamond.description"
+        },
+        "parent": {
+          "unique": "iron_tools"
+        },
+        "strongDependence": true,
+        "column": 5,
+        "row": 2,
+        "item": {
+          "id": 264
+        }
+      },
+      {
+        "unique": "shiny_gear",
+        "name": {
+          "text": "Cover Me With Diamonds",
+          "translate": "achievements.story.shiny_gear.title"
+        },
+        "description": {
+          "text": "Diamond armor saves lives",
+          "translate": "achievements.story.shiny_gear.description"
+        },
+        "parent": {
+          "unique": "mine_diamond"
+        },
+        "strongDependence": true,
+        "column": 6,
+        "row": 2,
+        "item": {
+          "id": 311
+        }
+      },
+      {
+        "unique": "form_obsidian",
+        "name": {
+          "text": "Ice Bucket Challenge",
+          "translate": "achievements.story.form_obsidian.title"
+        },
+        "description": {
+          "text": "Form and mine a block of Obsidian",
+          "translate": "achievements.story.form_obsidian.description"
+        },
+        "parent": {
+          "unique": "lava_bucket"
+        },
+        "strongDependence": true,
+        "column": 5,
+        "row": 1,
+        "item": {
+          "id": 49
+        }
+      },
+      {
+        "unique": "enter_the_nether",
+        "name": {
+          "text": "We Need to Go Deeper",
+          "translate": "achievements.story.enter_the_nether.title"
+        },
+        "description": {
+          "text": "Build, light and enter a Nether Portal",
+          "translate": "achievements.story.enter_the_nether.description"
+        },
+        "parent": {
+          "unique": "form_obsidian"
+        },
+        "strongDependence": true,
+        "column": 6,
+        "row": 1,
+        "item": {
+          "id": 259
+        }
+      },
+      {
+        "unique": "follow_ender_eye",
+        "name": {
+          "text": "Eye Spy",
+          "translate": "achievements.story.follow_ender_eye.title"
+        },
+        "description": {
+          "text": "Follow an Ender Eye",
+          "translate": "achievements.story.follow_ender_eye.description"
+        },
+        "parent": {
+          "unique": "enter_the_nether"
+        },
+        "strongDependence": true,
+        "column": 7,
+        "row": 1,
+        "item": {
+          "id": 381
+        }
+      },
+      {
+        "unique": "enter_the_end",
+        "name": {
+          "text": "The End?",
+          "translate": "achievements.story.enter_the_end.title"
+        },
+        "description": {
+          "text": "Enter the End Portal",
+          "translate": "achievements.story.enter_the_end.description"
+        },
+        "parent": {
+          "unique": "follow_ender_eye"
+        },
+        "strongDependence": true,
+        "column": 8,
+        "row": 1,
+        "item": {
+          "id": 121
+        }
+      },
+      {
+        "unique": "kill_dragon",
+        "name": {
+          "text": "Free the End",
+          "translate": "achievements.story.kill_dragon.title"
+        },
+        "description": {
+          "text": "Good luck",
+          "translate": "achievements.end.story.description"
+        },
+        "parent": {
+          "unique": "enter_the_end"
+        },
+        "column": 8,
+        "row": 2,
+        "strongDependence": true,
+        "item": {
+          "id": 276
+        }
+      }
+    ],
+    "nether": [
+      {
+        "unique": "root",
+        "name": {
+          "text": "Nether",
+          "translate": "achievements.nether.root.title"
+        },
+        "description": {
+          "text": "Bring summer clothes",
+          "translate": "achievements.nether.root.description"
+        },
+        "parent": {
+          "groupUnique": "story",
+          "unique": "enter_the_nether"
+        },
+        "column": 1,
+        "row": 2,
+        "strongDependence": true,
+        "item": {
+          "id": 87
+        }
+      },
+      {
+        "unique": "fast_travel",
+        "name": {
+          "text": "Subspace Bubble",
+          "translate": "achievements.nether.fast_travel.title"
+        },
+        "description": {
+          "text": "Use the Nether to travel 7km in the Overworld",
+          "translate": "achievements.nether.fast_travel.description"
+        },
+        "parent": {
+          "unique": "root"
+        },
+        "type": "challenge",
+        "column": 2,
+        "row": 0,
+        "strongDependence": true,
+        "item": {
+          "id": 339
+        }
+      },
+      {
+        "unique": "find_fortress",
+        "name": {
+          "text": "A Terrible Fortress",
+          "translate": "achievements.nether.find_fortress.title"
+        },
+        "description": {
+          "text": "Find the nether fortress and break nether bricks",
+          "translate": "achievements.nether.find_fortress.description"
+        },
+        "parent": {
+          "unique": "root"
+        },
+        "column": 2,
+        "row": 1,
+        "strongDependence": true,
+        "item": {
+          "id": 112
+        }
+      },
+      {
+        "unique": "return_to_sender",
+        "name": {
+          "text": "Return to Sender",
+          "translate": "achievements.nether.return_to_sender.title"
+        },
+        "description": {
+          "text": "Destroy a Ghast with a fireball",
+          "translate": "achievements.nether.return_to_sender.description"
+        },
+        "parent": {
+          "unique": "root"
+        },
+        "type": "challenge",
+        "column": 2,
+        "row": 2,
+        "strongDependence": true,
+        "item": {
+          "id": 385
+        }
+      },
+      {
+        "unique": "obtain_blaze_rod",
+        "name": {
+          "text": "Into Fire",
+          "translate": "achievements.nether.obtain_blaze_rod.title"
+        },
+        "description": {
+          "text": "Relieve a Blaze of its rod",
+          "translate": "achievements.nether.obtain_blaze_rod.description"
+        },
+        "parent": {
+          "unique": "find_fortress"
+        },
+        "column": 3,
+        "row": 1,
+        "strongDependence": true,
+        "item": {
+          "id": 369
+        }
+      },
+      {
+        "unique": "kill_wither_skeleton",
+        "name": {
+          "text": "Spooky Scary Skeleton",
+          "translate": "achievements.nether.kill_wither_skeleton.title"
+        },
+        "description": {
+          "text": "Kill Wither Skeleton",
+          "translate": "achievements.nether.kill_wither_skeleton.description"
+        },
+        "parent": {
+          "unique": "find_fortress"
+        },
+        "column": 3,
+        "row": 0,
+        "strongDependence": true,
+        "item": {
+          "id": 397,
+          "data": 1
+        }
+      },
+      {
+        "unique": "summon_wither",
+        "name": {
+          "text": "Withering Heights",
+          "translate": "achievements.nether.summon_wither.title"
+        },
+        "description": {
+          "text": "Summon the Wither",
+          "translate": "achievements.nether.summon_wither.description"
+        },
+        "parent": {
+          "unique": "kill_wither_skeleton"
+        },
+        "column": 4,
+        "row": 0,
+        "strongDependence": true,
+        "item": {
+          "id": 399,
+          "data": 1
+        }
+      },
+      {
+        "unique": "brew_potion",
+        "name": {
+          "text": "Local Brewery",
+          "translate": "achievements.nether.brew_potion.title"
+        },
+        "description": {
+          "text": "Drink potion",
+          "translate": "achievements.nether.brew_potion.description"
+        },
+        "parent": {
+          "unique": "obtain_blaze_rod"
+        },
+        "column": 4,
+        "row": 1,
+        "strongDependence": true,
+        "item": {
+          "id": 373
+        }
+      },
+      {
+        "unique": "uneasy_alliance",
+        "name": {
+          "text": "Uneasy Alliance",
+          "translate": "achievements.nether.uneasy_alliance.title"
+        },
+        "description": {
+          "text": "Rescue a Ghast from the Nether, bring it safely home to the Overworld... and then kill it",
+          "translate": "achievements.nether.uneasy_alliance.description"
+        },
+        "parent": {
+          "unique": "return_to_sender"
+        },
+        "column": 3,
+        "row": 2,
+        "strongDependence": true,
+        "type": "challenge",
+        "item": {
+          "id": 370
+        }
+      }
+    ]
+  }
+}
