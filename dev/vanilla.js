@@ -87,7 +87,7 @@ Callback.addCallback("EntityDeath", function (entity) {
             AchievementAPI.give("nether", "obtain_blaze_rod");
             break;
         case 53:
-            AchievementAPI.give("end", "kill_dragon");
+            AchievementAPI.give("story", "kill_dragon");
             break;
     }
 });
