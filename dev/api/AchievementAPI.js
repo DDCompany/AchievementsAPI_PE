@@ -279,25 +279,21 @@ const AchievementAPI = {
     },
 
     initGroupForWindow: function (group) {
-        try {
-            let parentElements = this.windowParent.getContent().elements;
-            parentElements["textPageIndex"].text = (this.currentIndex + 1) + "/" + this.groupsAmount;
-            parentElements["textGroupName"].text = group.name || "";
+        let parentElements = this.windowParent.getContent().elements;
+        parentElements["textPageIndex"].text = (this.currentIndex + 1) + "/" + this.groupsAmount;
+        parentElements["textGroupName"].text = group.name || "";
 
-            let slotIcon = this.parentContainer.getSlot("slotGroupIcon");
-            let groupIcon = group.icon;
+        let slotIcon = this.parentContainer.getSlot("slotGroupIcon");
+        let groupIcon = group.icon;
 
-            if (groupIcon) {
-                slotIcon.id = groupIcon.id || 0;
-                slotIcon.data = groupIcon.data || 0;
-                slotIcon.count = 1;
-            } else {
-                slotIcon.id = 0;
-                slotIcon.data = 0;
-                slotIcon.count = 1;
-            }
-        } catch (e) {
-            alert("3" + e);
+        if (groupIcon) {
+            slotIcon.id = groupIcon.id || 0;
+            slotIcon.data = groupIcon.data || 0;
+            slotIcon.count = 1;
+        } else {
+            slotIcon.id = 0;
+            slotIcon.data = 0;
+            slotIcon.count = 1;
         }
     },
 
@@ -362,75 +358,67 @@ const AchievementAPI = {
             },
 
             onDraw: function (self, canvas, scale) {
-                try {
-                    if (!this.path) {
-                        this.path = new android.graphics.Path();
+                if (!this.path) {
+                    this.path = new android.graphics.Path();
 
-                        for (let index in group.list) {
-                            let achievement = group.list[index];
-                            let parent = achievement.parent;
-                            let parentItem;
+                    for (let index in group.list) {
+                        let achievement = group.list[index];
+                        let parent = achievement.parent;
+                        let parentItem;
 
-                            if (!parent || parent.groupUnique !== group.unique ||
-                                (!AchievementAPI.isCompleted(group.unique, parent.unique) && achievement.strongDependence))
-                                continue;
+                        if (!parent || parent.groupUnique !== group.unique ||
+                            (!AchievementAPI.isCompleted(group.unique, parent.unique) && achievement.strongDependence))
+                            continue;
 
-                            if (parentItem = group.list[parent.unique]) {
-                                let x = AchievementAPI.getAchievementX(achievement, size);
-                                let y = AchievementAPI.getAchievementY(achievement, size);
-                                let _x = (x + halfOfSize) * scale;
-                                let _y = (y + halfOfSize) * scale;
-                                let parentX = AchievementAPI.getAchievementX(parentItem, size);
-                                let parentY = AchievementAPI.getAchievementY(parentItem, size);
-                                let _parentX = (parentX + halfOfSize) * scale;
-                                let _parentY = (parentY + halfOfSize) * scale;
+                        if (parentItem = group.list[parent.unique]) {
+                            let x = AchievementAPI.getAchievementX(achievement, size);
+                            let y = AchievementAPI.getAchievementY(achievement, size);
+                            let _x = (x + halfOfSize) * scale;
+                            let _y = (y + halfOfSize) * scale;
+                            let parentX = AchievementAPI.getAchievementX(parentItem, size);
+                            let parentY = AchievementAPI.getAchievementY(parentItem, size);
+                            let _parentX = (parentX + halfOfSize) * scale;
+                            let _parentY = (parentY + halfOfSize) * scale;
 
-                                if (parentX === x || parentY === y) {
-                                    this.path.moveTo(_x, _y);
-                                    this.path.lineTo(_parentX, _parentY);
-                                } else {
-                                    let x2 = _x + ((parentX < x ? -(halfOfSize + 5) : halfOfSize + 5) * scale);
+                            if (parentX === x || parentY === y) {
+                                this.path.moveTo(_x, _y);
+                                this.path.lineTo(_parentX, _parentY);
+                            } else {
+                                let x2 = _x + ((parentX < x ? -(halfOfSize + 5) : halfOfSize + 5) * scale);
 
-                                    this.path.moveTo(_x, _y);
-                                    this.path.lineTo(x2, _y);
-                                    this.path.lineTo(x2, _parentY);
-                                    this.path.lineTo(_parentX, _parentY);
-                                }
+                                this.path.moveTo(_x, _y);
+                                this.path.lineTo(x2, _y);
+                                this.path.lineTo(x2, _parentY);
+                                this.path.lineTo(_parentX, _parentY);
                             }
                         }
                     }
-
-                    canvas.drawPath(this.path, this.paint2);
-                    canvas.drawPath(this.path, this.paint);
-                } catch (e) {
-                    alert(e);
                 }
+
+                canvas.drawPath(this.path, this.paint2);
+                canvas.drawPath(this.path, this.paint);
             }
         };
     },
 
     initBackgroundForWindow: function (drawing, bgTexture) {
-        try {
-            drawing.push({
-                type: "custom",
+        drawing.push({
+            type: "custom",
 
-                func: function (canvas) {
-                    this.onDraw(canvas)
-                },
+            func: function (canvas) {
+                this.onDraw(canvas)
+            },
 
-                onDraw: function (canvas) {
-                    let textureBitmap = Bitmap.createScaledBitmap(UI.TextureSource.get(bgTexture), 50, 50, false);
+            onDraw: function (canvas) {
+                let textureBitmap = Bitmap.createScaledBitmap(UI.TextureSource.get(bgTexture), 50, 50, false);
 
-                    for (let i = 0; i <= canvas.getWidth() / 50; i++) {
-                        for (let k = 0; k <= canvas.getHeight() / 50; k++) {
-                            canvas.drawBitmap(textureBitmap, i * 50, k * 50, null);
-                        }
+                for (let i = 0; i <= canvas.getWidth() / 50; i++) {
+                    for (let k = 0; k <= canvas.getHeight() / 50; k++) {
+                        canvas.drawBitmap(textureBitmap, i * 50, k * 50, null);
                     }
                 }
-            });
-        } catch (e) {
-            alert("1" + e);
-        }
+            }
+        });
     },
 
     /**
