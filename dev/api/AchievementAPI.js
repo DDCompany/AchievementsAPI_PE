@@ -87,7 +87,15 @@ const AchievementAPI = {
                 }
             ],
             elements: {
-                "slotGroupIcon": {type: "slot", x: 75, y: 605, size: 100, visual: true, bitmap: "_default_slot_empty"},
+                "slotGroupIcon": {
+                    type: "slot",
+                    x: 75,
+                    y: 605,
+                    size: 100,
+                    visual: true,
+                    bitmap: "_default_slot_empty",
+                    isTransparentBackground: true
+                },
                 "textGroupName": {
                     type: "text",
                     x: 180,
@@ -394,7 +402,7 @@ const AchievementAPI = {
 
                     canvas.drawPath(this.path, this.paint2);
                     canvas.drawPath(this.path, this.paint);
-                }catch (e) {
+                } catch (e) {
                     alert(e);
                 }
             }
