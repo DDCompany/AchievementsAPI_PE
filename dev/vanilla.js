@@ -1,5 +1,16 @@
 let nether_coords = null;
 
+AchievementAPI.loadFrom(__dir__ + "json/vanilla.json");
+
+Saver.addSavesScope("VanillaAchievementsScope",
+    function read(scope) {
+        nether_coords = scope.nether_coords;
+    },
+    function save() {
+        return {nether_coords: nether_coords};
+    }
+);
+
 Callback.addCallback("ItemUse", function (coords, item) {
     switch (item.id) {
         case 58:

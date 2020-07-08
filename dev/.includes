@@ -2,10 +2,6 @@
 header.js
 translation.js
 
-#API
-api/AchievementPopup.js
-api/AchievementAPI.js
-
 #VANILLA ACHIEVEMENTS
 vanilla.js
 
