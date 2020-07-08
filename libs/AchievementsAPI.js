@@ -356,7 +356,7 @@ var Achievement = /** @class */ (function () {
         return this.group;
     };
     Achievement.prototype.setCompleted = function (value) {
-        this.completed = true;
+        this.completed = value;
     };
     Achievement.prototype.setData = function (value) {
         this.data = value;
@@ -975,6 +975,7 @@ Saver.addSavesScope("AchievementsScope", function read(scope) {
                 if (child) {
                     child.setCompleted(saved.completed);
                     child.setData(saved.data);
+                    alert("Read " + group.getUid() + " " + child.getUid());
                 }
                 else {
                     Logger.Log("Achievement with uid '" + key + "' not found. Skipping...", "WARNING");
