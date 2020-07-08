@@ -107,47 +107,28 @@ Callback.addCallback("EntityAdded", function (entity) {
     let type = Entity.getType(entity);
     if (type === 52)
         AchievementAPI.give("nether", "summon_wither");
-    else if(type === 64) {
+    else if (type === 64) {
         let item = Entity.getDroppedItem(entity);
-        if(item.id === 122)
+        if (item.id === 122)
             AchievementAPI.give("nether", "summon_wither");
     }
 });
 
-Recipes.deleteRecipe({id: 274, count: 1, data: 0});
-Recipes.addShaped({id: 274, count: 1, data: 0}, [
-    "xxx",
-    " a ",
-    " a "
-], ['x', 4, 0, 'a', 280, 0], function () {
-    AchievementAPI.give("story", "upgrade_tools");
-});
-
-Recipes.deleteRecipe({id: 307, count: 1, data: 0});
-Recipes.addShaped({id: 307, count: 1, data: 0}, [
-    "x x",
-    "xxx",
-    "xxx"
-], ['x', 265, 0], function () {
-    AchievementAPI.give("story", "obtain_armor");
-});
-
-Recipes.deleteRecipe({id: 257, count: 1, data: 0});
-Recipes.addShaped({id: 257, count: 1, data: 0}, [
-    "xxx",
-    " a ",
-    " a "
-], ['x', 265, 0, 'a', 280, 0], function () {
-    AchievementAPI.give("story", "iron_tools");
-});
-
-Recipes.deleteRecipe({id: 311, count: 1, data: 0});
-Recipes.addShaped({id: 311, count: 1, data: 0}, [
-    "x x",
-    "xxx",
-    "xxx"
-], ['x', 264, 0], function () {
-    AchievementAPI.give("story", "shiny_gear");
+Callback.addCallback("VanillaWorkbenchCraft", function (result) {
+    switch (result.id) {
+        case VanillaItemID.stone_pickaxe:
+            AchievementAPI.give("story", "upgrade_tools");
+            break;
+        case VanillaItemID.iron_chestplate:
+            AchievementAPI.give("story", "obtain_armor");
+            break;
+        case VanillaItemID.iron_pickaxe:
+            AchievementAPI.give("story", "iron_tools");
+            break;
+        case VanillaItemID.diamond_chestplate:
+            AchievementAPI.give("story", "shiny_gear");
+            break;
+    }
 });
 
 
