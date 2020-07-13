@@ -515,7 +515,6 @@ var AchievementAPI = /** @class */ (function () {
                         }
                         var parentItem = group.getChild(parent.getUid());
                         if (parentItem) {
-                            alert("1");
                             var x = AchievementAPI.getAchievementX(achievement.getDescription(), size);
                             var y = AchievementAPI.getAchievementY(achievement.getDescription(), size);
                             var _x = (x + halfOfSize) * scale;
@@ -954,7 +953,6 @@ Saver.addSavesScope("AchievementsScope", function read(scope) {
         isOldSaves = amount == 2;
     }
     if (isOldSaves) { //Convert old format to new one
-        alert("old saves detected");
         // @ts-ignore
         var saves = scope;
         var newSaves = {};
@@ -992,7 +990,6 @@ Saver.addSavesScope("AchievementsScope", function read(scope) {
                 if (child) {
                     child.setCompleted(saved.completed);
                     child.setData(saved.data);
-                    alert("Read " + group.getUid() + " " + child.getUid());
                 }
                 else {
                     Logger.Log("Achievement with uid '" + key + "' not found. Skipping...", "WARNING");
@@ -1017,7 +1014,6 @@ Saver.addSavesScope("AchievementsScope", function read(scope) {
         }
         data[groupKey] = _data;
     }
-    alert("save");
     return data;
 });
 Callback.addCallback("NativeCommand", function (str) {
