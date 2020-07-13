@@ -5,7 +5,7 @@
      / ___ \ (__| | | | |  __/\ V /  __/ | | | | |  __/ | | | |_\__ \/ ___ \|  __/| |
     /_/   \_\___|_| |_|_|\___| \_/ \___|_| |_| |_|\___|_| |_|\__|___/_/   \_\_|  |___|
 
-    AchievementAPI library
+    AchievementsAPI library
      
     Условия использования:
       - Запрещено распространение библиотеки на сторонних источниках
@@ -24,13 +24,6 @@ LIBRARY({
     api: "CoreEngine"
 });
 var IllegalArgumentException = java.lang.IllegalArgumentException;
-function translateField(field) {
-    if (field.translate) {
-        var translation = Translation.translate(field.translate);
-        return translation === field.translate ? field.text : translation;
-    }
-    return field.text;
-}
 /**
  * Class for managing popups on the screen
  */
@@ -236,14 +229,16 @@ var Achievement = /** @class */ (function () {
                 if (otherGroup) {
                     child = otherGroup.getChild(parent.unique);
                 }
-                else
+                else {
                     throw new IllegalArgumentException("Parent not found: group uid is invalid");
+                }
             }
             if (child) {
                 this.parent = child;
             }
-            else
+            else {
                 throw new IllegalArgumentException("Parent not found: achievement uid is invalid");
+            }
         }
     }
     Achievement.prototype.give = function () {
@@ -286,6 +281,7 @@ var Achievement = /** @class */ (function () {
         }
         this.completed = true;
         Callback.invokeCallback("onAchieve", this.group.getDescription(), this.getDescription());
+        Callback.invokeCallback("onAchievementCompleted", this);
     };
     Achievement.prototype.reset = function () {
         this.completed = false;
@@ -301,8 +297,9 @@ var Achievement = /** @class */ (function () {
             info += "(" + this.getProgress() + "/" + this.description.progressMax + ")";
         }
         var description = AchievementAPI.getLocalized(this.description, "description");
-        if (description)
+        if (description) {
             info += "\n" + description;
+        }
         alert(info);
     };
     /**
@@ -322,12 +319,15 @@ var Achievement = /** @class */ (function () {
     };
     Achievement.prototype.getTextureName = function () {
         var type;
-        if (this.isCompleted())
+        if (this.isCompleted()) {
             type = "completed";
-        else if (this.isUnlocked())
+        }
+        else if (this.isUnlocked()) {
             type = "unlocked";
-        else
+        }
+        else {
             type = "locked";
+        }
         return "achievement_bg." + (this.description.type || "default") + "_" + type;
     };
     Achievement.prototype.getParent = function () {
@@ -342,10 +342,6 @@ var Achievement = /** @class */ (function () {
     Achievement.prototype.getDescription = function () {
         return this.description;
     };
-    /**
-     * For backward capability. Don't use it
-     * @deprecated
-     */
     Achievement.prototype.getFullData = function () {
         return this.data;
     };
@@ -354,6 +350,9 @@ var Achievement = /** @class */ (function () {
     };
     Achievement.prototype.getGroup = function () {
         return this.group;
+    };
+    Achievement.prototype.getData = function () {
+        return this.data.data;
     };
     Achievement.prototype.setCompleted = function (value) {
         this.completed = value;
@@ -396,10 +395,12 @@ var AchievementAPI = /** @class */ (function () {
             throw new IllegalArgumentException("Invalid group uid");
         }
         var parent = description.parent;
-        if (parent && !parent.groupUnique)
+        if (parent && !parent.groupUnique) {
             parent.groupUnique = uid;
+        }
         group.addChildren(new Achievement(group, description));
     };
+    //noinspection JSUnusedGlobalSymbols
     /**
      * Load groups and achievements from JSON file
      * @param path - path to JSON
@@ -411,15 +412,17 @@ var AchievementAPI = /** @class */ (function () {
             var parsed = JSON.parse(content);
             var groups = parsed.groups;
             if (groups) {
-                for (var key in groups)
+                for (var key in groups) {
                     AchievementAPI.registerGroup(groups[key]);
+                }
             }
             var achievements = parsed.achievements;
             if (achievements) {
                 for (var key in achievements) {
                     var achievementGroup = achievements[key];
-                    for (var key2 in achievementGroup)
+                    for (var key2 in achievementGroup) {
                         AchievementAPI.register(key, achievementGroup[key2]);
+                    }
                 }
             }
             return;
@@ -450,8 +453,9 @@ var AchievementAPI = /** @class */ (function () {
             var achievement = group.getChild(index);
             var parent = achievement.getParent();
             if (parent) {
-                if (!parent.isCompleted() && achievement.isStrongDependence())
+                if (!parent.isCompleted() && achievement.isStrongDependence()) {
                     return "continue";
+                }
             }
             contentExist = true;
             var x = this_1.getAchievementX(achievement.getDescription(), size);
@@ -484,6 +488,7 @@ var AchievementAPI = /** @class */ (function () {
     };
     AchievementAPI.initConditionsForWindow = function (group, size, elements) {
         var halfOfSize = size / 2;
+        //noinspection JSUnusedGlobalSymbols
         elements["lines"] = {
             type: "custom",
             z: -1,
@@ -510,6 +515,7 @@ var AchievementAPI = /** @class */ (function () {
                         }
                         var parentItem = group.getChild(parent.getUid());
                         if (parentItem) {
+                            alert("1");
                             var x = AchievementAPI.getAchievementX(achievement.getDescription(), size);
                             var y = AchievementAPI.getAchievementY(achievement.getDescription(), size);
                             var _x = (x + halfOfSize) * scale;
@@ -538,6 +544,7 @@ var AchievementAPI = /** @class */ (function () {
         };
     };
     AchievementAPI.initBackgroundForWindow = function (drawing, bgTexture) {
+        //noinspection JSUnusedGlobalSymbols
         drawing.push({
             type: "custom",
             func: function (canvas) {
@@ -557,10 +564,12 @@ var AchievementAPI = /** @class */ (function () {
      * Open achievement window
      */
     AchievementAPI.openAchievementsWindow = function () {
-        if (this.currentIndex < 0)
+        if (this.currentIndex < 0) {
             this.currentIndex = this.groupsAmount - 1;
-        else if (this.currentIndex >= this.groupsAmount)
+        }
+        else if (this.currentIndex >= this.groupsAmount) {
             this.currentIndex = 0;
+        }
         var group = this.groups[this.groupNames[AchievementAPI.currentIndex]];
         var width = group.getWidth() || 600;
         var height = group.getHeight() || 250;
@@ -571,15 +580,17 @@ var AchievementAPI = /** @class */ (function () {
         var contentExist = this.initAchievementsForWindow(group, size, elements);
         if (contentExist) {
             this.initConditionsForWindow(group, size, elements);
-            if (group.getBgTextureName())
+            if (group.getBgTextureName()) {
                 this.initBackgroundForWindow(drawing, group.getBgTextureName());
+            }
         }
         else {
             width = 432;
             height = 260;
             var translated = Translation.translate("achievementApi.nothing");
-            if (translated === "achievementApi.nothing")
+            if (translated === "achievementApi.nothing") {
                 translated = "Nothing to Show :(";
+            }
             elements["nothing"] = {
                 type: "text",
                 x: 0,
@@ -608,6 +619,7 @@ var AchievementAPI = /** @class */ (function () {
             elements["nothing"].x = (1000 - AchievementAPI.container.getElement("nothing").elementRect.width()) / 2;
         }
     };
+    //noinspection JSUnusedGlobalSymbols
     /**
      * @param groupUID - group identifier in which achievement contains
      * @param uid - achievement identifier
@@ -695,6 +707,7 @@ var AchievementAPI = /** @class */ (function () {
     AchievementAPI.getAchievementX = function (achievement, size) {
         return achievement.x || achievement.column * (size + 10);
     };
+    //noinspection JSUnusedGlobalSymbols
     /**
      * @deprecated
      */
@@ -723,6 +736,7 @@ var AchievementAPI = /** @class */ (function () {
         }
         return child.getFullData();
     };
+    //noinspection JSUnusedGlobalSymbols
     /**
      * @deprecated
      */
@@ -748,6 +762,7 @@ var AchievementAPI = /** @class */ (function () {
         group.giveAll();
         return true;
     };
+    //noinspection JSUnusedGlobalSymbols,JSUnusedLocalSymbols
     /**
      * @deprecated
      */
@@ -909,10 +924,12 @@ Callback.addCallback("PostLoaded", function () {
     AchievementAPI.groupNames = Object.keys(AchievementAPI.groups);
 });
 Callback.addCallback("NativeGuiChanged", function (screenName) {
-    if (screenName === "hud_screen" || screenName === "in_game_play_screen")
+    if (screenName === "hud_screen" || screenName === "in_game_play_screen") {
         AchievementAPI.containerOverlay.openAs(AchievementAPI.groupsShowUI);
-    else
+    }
+    else {
         AchievementAPI.containerOverlay.close();
+    }
 });
 Callback.addCallback("LevelLeft", function () {
     AchievementAPI.resetAll();
@@ -1000,6 +1017,7 @@ Saver.addSavesScope("AchievementsScope", function read(scope) {
         }
         data[groupKey] = _data;
     }
+    alert("save");
     return data;
 });
 Callback.addCallback("NativeCommand", function (str) {
@@ -1013,8 +1031,9 @@ Callback.addCallback("NativeCommand", function (str) {
                 Game.prevent();
                 return;
             case "give":
-                if (!parts[2] || !AchievementAPI.giveAllForGroup(AchievementAPI.groups[parts[2]].getDescription()))
+                if (!parts[2] || !AchievementAPI.giveAllForGroup(AchievementAPI.groups[parts[2]].getDescription())) {
                     return;
+                }
                 Game.message("[AchievementAPI] Achievements was gave!");
                 Game.prevent();
                 return;
