@@ -2,18 +2,18 @@ AchievementAPI.loadFrom(__dir__ + "json/vanilla.json");
 
 Callback.addCallback("ItemUse", function (coords, item) {
     switch (item.id) {
-        case 58:
+        case VanillaBlockID.crafting_table:
             AchievementAPI.give("story", "root");
             break;
-        case 325:
+        case VanillaItemID.bucket:
             if (item.data === 10) {
                 AchievementAPI.give("story", "lava_bucket");
             }
             break;
-        case 381:
+        case VanillaItemID.ender_eye:
             AchievementAPI.give("story", "follow_ender_eye");
             break;
-        case 373:
+        case VanillaItemID.potion:
             AchievementAPI.give("nether", "brew_potion");
             break;
     }
@@ -21,26 +21,26 @@ Callback.addCallback("ItemUse", function (coords, item) {
 
 Callback.addCallback("DestroyBlock", function (coords, block) {
     switch (block.id) {
-        case 1:
+        case VanillaBlockID.stone:
             AchievementAPI.give("story", "mine_stone");
             break;
-        case 49:
+        case VanillaBlockID.obsidian:
             AchievementAPI.give("story", "form_obsidian");
             break;
-        case 56:
+        case VanillaBlockID.diamond_ore:
             AchievementAPI.give("story", "mine_diamond");
             break;
-        case 112:
+        case VanillaBlockID.nether_brick:
             AchievementAPI.give("nether", "find_fortress");
             break;
     }
 });
 
 Callback.addCallback("DimensionLoaded", function (dimensionId) {
-    if (dimensionId === 1) {
+    if (dimensionId === DimensionType.NETHER) {
         AchievementAPI.give("story", "enter_the_nether");
         AchievementAPI.give("nether", "root");
-    } else if (dimensionId === 2) {
+    } else if (dimensionId === DimensionType.END) {
         AchievementAPI.give("story", "enter_the_end");
     }
 });
@@ -48,7 +48,7 @@ Callback.addCallback("DimensionLoaded", function (dimensionId) {
 Callback.addCallback("EntityHurt", function (attacker) {
     let typeOfAttacker = Entity.getType(attacker);
 
-    if (typeOfAttacker === 85) {
+    if (typeOfAttacker === EntityType.FIREBALL) {
         AchievementAPI.give("nether", "return_to_sender");
     }
 });
@@ -57,18 +57,18 @@ Callback.addCallback("EntityDeath", function (entity) {
     let typeOfVictim = Entity.getType(entity);
 
     switch (typeOfVictim) {
-        case 34:
-            if (Player.getDimension() === 1)
+        case EntityType.WHITHER_SKELETON:
+            if (Player.getDimension() === DimensionType.NETHER)
                 AchievementAPI.give("nether", "kill_wither_skeleton");
             break;
-        case 41:
-            if (!Player.getDimension())
+        case EntityType.GHAST:
+            if (Player.getDimension() === DimensionType.NORMAL)
                 AchievementAPI.give("nether", "uneasy_alliance");
             break;
-        case 43:
+        case EntityType.BLAZE:
             AchievementAPI.give("nether", "obtain_blaze_rod");
             break;
-        case 53:
+        case EntityType.ENDER_DRAGON:
             AchievementAPI.give("story", "kill_dragon");
             break;
     }
@@ -76,11 +76,11 @@ Callback.addCallback("EntityDeath", function (entity) {
 
 Callback.addCallback("EntityAdded", function (entity) {
     let type = Entity.getType(entity);
-    if (type === 52)
+    if (type === EntityType.WHITHER)
         AchievementAPI.give("nether", "summon_wither");
-    else if (type === 64) {
+    else if (type === EntityType.ITEM) {
         let item = Entity.getDroppedItem(entity);
-        if (item.id === 122)
+        if (item.id === VanillaBlockID.dragon_egg)
             AchievementAPI.give("nether", "summon_wither");
     }
 });
