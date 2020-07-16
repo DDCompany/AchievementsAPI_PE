@@ -91,14 +91,20 @@ Callback.addCallback("VanillaWorkbenchCraft", function (result) {
         case VanillaItemID.stone_pickaxe:
             AchievementAPI.give("story", "upgrade_tools");
             break;
+        case VanillaItemID.iron_helmet:
         case VanillaItemID.iron_chestplate:
+        case VanillaItemID.iron_leggings:
+        case VanillaItemID.iron_boots:
             AchievementAPI.give("story", "obtain_armor");
+            break;
+        case VanillaItemID.diamond_helmet:
+        case VanillaItemID.diamond_chestplate:
+        case VanillaItemID.diamond_leggings:
+        case VanillaItemID.diamond_boots:
+            AchievementAPI.give("story", "shiny_gear");
             break;
         case VanillaItemID.iron_pickaxe:
             AchievementAPI.give("story", "iron_tools");
-            break;
-        case VanillaItemID.diamond_chestplate:
-            AchievementAPI.give("story", "shiny_gear");
             break;
     }
 });
