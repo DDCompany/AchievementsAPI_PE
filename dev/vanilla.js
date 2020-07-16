@@ -1,4 +1,5 @@
-AchievementAPI.loadFrom(__dir__ + "json/vanilla.json");
+AchievementAPI.loadFrom(__dir__ + "achievements/story.json");
+AchievementAPI.loadFrom(__dir__ + "achievements/nether.json");
 
 Callback.addCallback("ItemUse", function (coords, item) {
     switch (item.id) {
@@ -6,7 +7,7 @@ Callback.addCallback("ItemUse", function (coords, item) {
             AchievementAPI.give("story", "root");
             break;
         case VanillaItemID.bucket:
-            if (item.data === 10) {
+            if (item.data === 10) { //lava_bucket
                 AchievementAPI.give("story", "lava_bucket");
             }
             break;
