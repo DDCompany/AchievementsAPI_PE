@@ -300,27 +300,6 @@
         }
       },
       {
-        "unique": "fast_travel",
-        "name": {
-          "text": "Subspace Bubble",
-          "translate": "achievements.nether.fast_travel.title"
-        },
-        "description": {
-          "text": "Use the Nether to travel 7km in the Overworld",
-          "translate": "achievements.nether.fast_travel.description"
-        },
-        "parent": {
-          "unique": "root"
-        },
-        "type": "challenge",
-        "column": 2,
-        "row": 0,
-        "strongDependence": true,
-        "item": {
-          "id": 339
-        }
-      },
-      {
         "unique": "find_fortress",
         "name": {
           "text": "A Terrible Fortress",

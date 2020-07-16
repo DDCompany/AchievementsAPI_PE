@@ -1,15 +1,4 @@
-let nether_coords = null;
-
 AchievementAPI.loadFrom(__dir__ + "json/vanilla.json");
-
-Saver.addSavesScope("VanillaAchievementsScope",
-    function read(scope) {
-        nether_coords = scope.nether_coords;
-    },
-    function save() {
-        return {nether_coords: nether_coords};
-    }
-);
 
 Callback.addCallback("ItemUse", function (coords, item) {
     switch (item.id) {
@@ -47,30 +36,12 @@ Callback.addCallback("DestroyBlock", function (coords, block) {
     }
 });
 
-Callback.addCallback("NativeGuiChanged", function (screenName) {
-    if (screenName === "world_loading_progress_screen - nether" && !Player.getDimension()) {
-        let position = Player.getPosition();
-        nether_coords = {
-            x: position.x,
-            y: position.y,
-            z: position.z
-        };
-    }
-});
-
 Callback.addCallback("DimensionLoaded", function (dimensionId) {
     if (dimensionId === 1) {
         AchievementAPI.give("story", "enter_the_nether");
         AchievementAPI.give("nether", "root");
     } else if (dimensionId === 2) {
         AchievementAPI.give("story", "enter_the_end");
-    } else {
-        if (nether_coords) {
-            if (Entity.getDistanceBetweenCoords(Player.getPosition(), nether_coords) >= 7000)
-                AchievementAPI.give("nether", "fast_travel");
-
-            nether_coords = null;
-        }
     }
 });
 
@@ -130,8 +101,3 @@ Callback.addCallback("VanillaWorkbenchCraft", function (result) {
             break;
     }
 });
-
-
-
-
-
