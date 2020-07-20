@@ -19,17 +19,34 @@
 */
 LIBRARY({
     name: "AchievementsAPI",
-    version: 0,
+    version: 1,
     shared: true,
     api: "CoreEngine"
 });
 var IllegalArgumentException = java.lang.IllegalArgumentException;
+Translation.addTranslation("message.achievementApi.achievement_complete", {
+    en: "Achievement Made!",
+    ru: "Достижение выполнено"
+});
+Translation.addTranslation("message.achievementApi.challenge_complete", {
+    en: "Challenge Made!",
+    ru: "Испытание выполнено"
+});
+Translation.addTranslation("message.achievementApi.goal_complete", {
+    en: "Goal Completed",
+    ru: "Цель выполнена"
+});
+Translation.addTranslation("achievementApi.achievements", {en: "Advancements", ru: "Достижения"});
+Translation.addTranslation("achievementApi.nothing", {
+    ru: "Здесь ничего нет :("
+});
 /**
  * Class for managing popups on the screen
  */
 var AchievementPopup = /** @class */ (function () {
     function AchievementPopup() {
     }
+
     /**
      * Initialize the window
      */
@@ -362,9 +379,11 @@ var Achievement = /** @class */ (function () {
     };
     return Achievement;
 }());
+var TileMode = android.graphics.Shader.TileMode;
 var AchievementAPI = /** @class */ (function () {
     function AchievementAPI() {
     }
+
     /**
      * Initialize windows
      */
@@ -383,6 +402,7 @@ var AchievementAPI = /** @class */ (function () {
         }
         this.groups[group.getUid()] = group;
         this.groupsAmount++;
+        return group;
     };
     /**
      * Register new achievement
@@ -398,7 +418,9 @@ var AchievementAPI = /** @class */ (function () {
         if (parent && !parent.groupUnique) {
             parent.groupUnique = uid;
         }
-        group.addChildren(new Achievement(group, description));
+        var achievement = new Achievement(group, description);
+        group.addChildren(achievement);
+        return achievement;
     };
     //noinspection JSUnusedGlobalSymbols
     /**
@@ -495,13 +517,11 @@ var AchievementAPI = /** @class */ (function () {
             custom: {},
             onSetup: function () {
                 this.paint = new android.graphics.Paint();
-                this.paint.setColor(android.graphics.Color.WHITE);
+                this.paint.setARGB(255, 255, 255, 255);
                 this.paint.setStyle(android.graphics.Paint.Style.STROKE);
-                this.paint.setStrokeWidth(4);
                 this.paint2 = new android.graphics.Paint();
-                this.paint2.setColor(android.graphics.Color.BLACK);
+                this.paint2.setARGB(255, 0, 0, 0);
                 this.paint2.setStyle(android.graphics.Paint.Style.STROKE);
-                this.paint2.setStrokeWidth(10);
             },
             onDraw: function (self, canvas, scale) {
                 if (!this.path) {
@@ -526,8 +546,7 @@ var AchievementAPI = /** @class */ (function () {
                             if (parentX === x || parentY === y) {
                                 this.path.moveTo(_x, _y);
                                 this.path.lineTo(_parentX, _parentY);
-                            }
-                            else {
+                            } else {
                                 var x2 = _x + ((parentX < x ? -(halfOfSize + 5) : halfOfSize + 5) * scale);
                                 this.path.moveTo(_x, _y);
                                 this.path.lineTo(x2, _y);
@@ -537,6 +556,8 @@ var AchievementAPI = /** @class */ (function () {
                         }
                     }
                 }
+                this.paint.setStrokeWidth(6 * scale);
+                this.paint2.setStrokeWidth(14 * scale);
                 canvas.drawPath(this.path, this.paint2);
                 canvas.drawPath(this.path, this.paint);
             }
@@ -546,16 +567,12 @@ var AchievementAPI = /** @class */ (function () {
         //noinspection JSUnusedGlobalSymbols
         drawing.push({
             type: "custom",
-            func: function (canvas) {
-                this.onDraw(canvas);
-            },
-            onDraw: function (canvas) {
-                var textureBitmap = android.graphics.Bitmap.createScaledBitmap(UI.TextureSource.get(bgTexture), 50, 50, false);
-                for (var i = 0; i <= canvas.getWidth() / 50; i++) {
-                    for (var k = 0; k <= canvas.getHeight() / 50; k++) {
-                        canvas.drawBitmap(textureBitmap, i * 50, k * 50, null);
-                    }
-                }
+            onDraw: function (canvas, scale) {
+                var bitmap = android.graphics.Bitmap.createScaledBitmap(UI.TextureSource.get(bgTexture), 80 * scale, 80 * scale, false);
+                var paint = new android.graphics.Paint();
+                paint.setShader(new android.graphics.BitmapShader(bitmap, TileMode.REPEAT, TileMode.REPEAT));
+                canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
+                bitmap.recycle();
             }
         });
     };
@@ -813,7 +830,6 @@ var AchievementAPI = /** @class */ (function () {
             height: 370
         },
         drawing: [
-            { type: "color", color: android.graphics.Color.rgb(198, 198, 198) },
             { type: "frame", x: 0, y: 0, width: 1000, height: 725, bitmap: "achievements_frame", scale: 5 },
             {
                 type: "text",
@@ -1039,20 +1055,4 @@ Callback.addCallback("NativeCommand", function (str) {
                 Game.prevent();
         }
     }
-});
-Translation.addTranslation("message.achievementApi.achievement_complete", {
-    en: "Achievement Made!",
-    ru: "Достижение выполнено"
-});
-Translation.addTranslation("message.achievementApi.challenge_complete", {
-    en: "Challenge Made!",
-    ru: "Испытание выполнено"
-});
-Translation.addTranslation("message.achievementApi.goal_complete", {
-    en: "Goal Completed",
-    ru: "Цель выполнена"
-});
-Translation.addTranslation("achievementApi.achievements", { en: "Advancements", ru: "Достижения" });
-Translation.addTranslation("achievementApi.nothing", {
-    ru: "Здесь ничего нет :("
 });
