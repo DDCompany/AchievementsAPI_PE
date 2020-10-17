@@ -1,0 +1,63 @@
+{
+  "global": {
+    "info": {
+      "name": "AchievementsAPI",
+      "description": "",
+      "author": "DDCompany",
+      "version": "release-2.1",
+      "icon": "src/mod_icon.png"
+    },
+    "api": "CoreEngine"
+  },
+  "make": {
+    "debugAbi": "armeabi-v7a",
+    "abis": [
+      "armeabi-v7a",
+      "x86"
+    ],
+    "linkNative": [
+      "minecraftpe",
+      "innercore",
+      "nativejs"
+    ],
+    "excludeFromRelease": [],
+    "pushTo": "storage/emulated/0/games/horizon/packs/Inner_Core/innercore/mods/WailaPE",
+    "ndkPath": null
+  },
+  "resources": [
+    {
+      "path": "src/assets/gui",
+      "type": "gui"
+    }
+  ],
+  "sources": [
+    {
+      "source": "src/dev",
+      "target": "main.js",
+      "type": "main",
+      "language": "typescript"
+    },
+    {
+      "source": "src/launcher.js",
+      "type": "launcher",
+      "language": "javascript"
+    },
+    {
+      "source": "src/lib/*",
+      "type": "library",
+      "language": "javascript"
+    }
+  ],
+  "compile": [
+  ],
+  "additional": [
+    {
+      "source": "src/assets/achievements/*",
+      "targetDir": "./achievements"
+    },
+    {
+      "source": "src/assets/config/*",
+      "targetDir": "."
+    }
+  ]
+}

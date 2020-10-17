@@ -8,6 +8,8 @@
 
  by Dmitriy Medvedev
  */
-IMPORT("AchievementsAPI");
+
 const DimensionType = Native.Dimension;
 const EntityType = Native.EntityType;
+const IllegalArgumentException = java.lang.IllegalArgumentException;
+const LOG_TAG = "ACHIEVEMENTS-API";
