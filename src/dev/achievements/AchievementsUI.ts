@@ -146,7 +146,7 @@ class AchievementsUI {
             let parent = achievement.parent;
 
             if (parent) {
-                if (!parent.isCompleted && achievement.strongDependence) {
+                if (!parent.isCompleted(Player.get()) && achievement.strongDependence) {
                     continue;
                 }
             }
@@ -211,7 +211,7 @@ class AchievementsUI {
                         }
 
                         if (!parent || parent.group.uid !== group.uid ||
-                            (!parent.isCompleted && achievement.strongDependence)) {
+                            (!parent.isCompleted(Player.get()) && achievement.strongDependence)) {
                             continue;
                         }
 

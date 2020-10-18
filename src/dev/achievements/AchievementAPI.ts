@@ -83,9 +83,10 @@ class AchievementAPI {
     /**
      * @param groupUID - group identifier in which achievement contains
      * @param uid - achievement identifier
+     * @param player - player uid
      * @returns Is the achievement unlocked?
      */
-    static isUnlocked(groupUID: string, uid: string) {
+    static isUnlocked(groupUID: string, uid: string, player: number) {
         let group = this.groups[groupUID];
         if (!group) {
             throw new IllegalArgumentException(`Group with uid '${groupUID}' not found`);
@@ -96,7 +97,7 @@ class AchievementAPI {
             throw new IllegalArgumentException(`Achievement with uid '${groupUID}' not found`);
         }
 
-        return achievement.isUnlocked;
+        return achievement.isUnlocked(player);
     }
 
     /**
