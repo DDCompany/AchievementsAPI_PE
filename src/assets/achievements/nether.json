@@ -1,180 +1,101 @@
 {
   "groups": [
     {
-      "unique": "nether",
+      "uid": "nether",
       "name": "Nether",
-      "bgTexture": "groups_bg.nether",
-      "icon": {
-        "id": 87
-      }
+      "background": "groups_bg.nether",
+      "icon": 87
     }
   ],
   "achievements": {
     "nether": [
       {
-        "unique": "root",
-        "name": {
-          "text": "Nether",
-          "translate": "achievements.nether.root.title"
-        },
-        "description": {
-          "text": "Bring summer clothes",
-          "translate": "achievements.nether.root.description"
-        },
-        "parent": {
-          "groupUnique": "story",
-          "unique": "enter_the_nether"
-        },
+        "uid": "root",
+        "name": "achievements.nether.root.title",
+        "description": "achievements.nether.root.description",
+        "parent": "story:enter_the_nether",
         "column": 1,
         "row": 2,
-        "strongDependence": true,
-        "item": {
-          "id": 87
-        }
+        "hidden": true,
+        "icon": 87
       },
       {
-        "unique": "find_fortress",
-        "name": {
-          "text": "A Terrible Fortress",
-          "translate": "achievements.nether.find_fortress.title"
-        },
-        "description": {
-          "text": "Find the nether fortress and break nether bricks",
-          "translate": "achievements.nether.find_fortress.description"
-        },
-        "parent": {
-          "unique": "root"
-        },
+        "uid": "find_fortress",
+        "name": "achievements.nether.find_fortress.title",
+        "description": "achievements.nether.find_fortress.description",
+        "parent": "root",
         "column": 2,
         "row": 1,
-        "strongDependence": true,
-        "item": {
-          "id": 112
-        }
+        "hidden": true,
+        "icon": 112
       },
       {
-        "unique": "return_to_sender",
-        "name": {
-          "text": "Return to Sender",
-          "translate": "achievements.nether.return_to_sender.title"
-        },
-        "description": {
-          "text": "Destroy a Ghast with a fireball",
-          "translate": "achievements.nether.return_to_sender.description"
-        },
-        "parent": {
-          "unique": "root"
-        },
+        "uid": "return_to_sender",
+        "name": "achievements.nether.return_to_sender.title",
+        "description": "achievements.nether.return_to_sender.description",
+        "parent": "root",
         "type": "challenge",
         "column": 2,
         "row": 2,
-        "strongDependence": true,
-        "item": {
-          "id": 385
-        }
+        "hidden": true,
+        "icon": 385
       },
       {
-        "unique": "obtain_blaze_rod",
-        "name": {
-          "text": "Into Fire",
-          "translate": "achievements.nether.obtain_blaze_rod.title"
-        },
-        "description": {
-          "text": "Relieve a Blaze of its rod",
-          "translate": "achievements.nether.obtain_blaze_rod.description"
-        },
-        "parent": {
-          "unique": "find_fortress"
-        },
+        "uid": "obtain_blaze_rod",
+        "name": "achievements.nether.obtain_blaze_rod.title",
+        "description": "achievements.nether.obtain_blaze_rod.description",
+        "parent": "find_fortress",
         "column": 3,
         "row": 1,
-        "strongDependence": true,
-        "item": {
-          "id": 369
-        }
+        "hidden": true,
+        "icon": 369
       },
       {
-        "unique": "kill_wither_skeleton",
-        "name": {
-          "text": "Spooky Scary Skeleton",
-          "translate": "achievements.nether.kill_wither_skeleton.title"
-        },
-        "description": {
-          "text": "Kill Wither Skeleton",
-          "translate": "achievements.nether.kill_wither_skeleton.description"
-        },
-        "parent": {
-          "unique": "find_fortress"
-        },
+        "uid": "kill_wither_skeleton",
+        "name": "achievements.nether.kill_wither_skeleton.title",
+        "description": "achievements.nether.kill_wither_skeleton.description",
+        "parent": "find_fortress",
         "column": 3,
         "row": 0,
-        "strongDependence": true,
-        "item": {
+        "hidden": true,
+        "icon": {
           "id": 397,
           "data": 1
         }
       },
       {
-        "unique": "summon_wither",
-        "name": {
-          "text": "Withering Heights",
-          "translate": "achievements.nether.summon_wither.title"
-        },
-        "description": {
-          "text": "Summon the Wither",
-          "translate": "achievements.nether.summon_wither.description"
-        },
-        "parent": {
-          "unique": "kill_wither_skeleton"
-        },
+        "uid": "summon_wither",
+        "name": "achievements.nether.summon_wither.title",
+        "description": "achievements.nether.summon_wither.description",
+        "parent": "kill_wither_skeleton",
         "column": 4,
         "row": 0,
-        "strongDependence": true,
-        "item": {
+        "hidden": true,
+        "icon": {
           "id": 399,
           "data": 1
         }
       },
       {
-        "unique": "brew_potion",
-        "name": {
-          "text": "Local Brewery",
-          "translate": "achievements.nether.brew_potion.title"
-        },
-        "description": {
-          "text": "Drink potion",
-          "translate": "achievements.nether.brew_potion.description"
-        },
-        "parent": {
-          "unique": "obtain_blaze_rod"
-        },
+        "uid": "brew_potion",
+        "name": "achievements.nether.brew_potion.title",
+        "description": "achievements.nether.brew_potion.description",
+        "parent": "obtain_blaze_rod",
         "column": 4,
         "row": 1,
-        "strongDependence": true,
-        "item": {
-          "id": 373
-        }
+        "hidden": true,
+        "icon": 373
       },
       {
-        "unique": "uneasy_alliance",
-        "name": {
-          "text": "Uneasy Alliance",
-          "translate": "achievements.nether.uneasy_alliance.title"
-        },
-        "description": {
-          "text": "Rescue a Ghast from the Nether, bring it safely home to the Overworld... and then kill it",
-          "translate": "achievements.nether.uneasy_alliance.description"
-        },
-        "parent": {
-          "unique": "return_to_sender"
-        },
+        "uid": "uneasy_alliance",
+        "name": "achievements.nether.uneasy_alliance.title",
+        "description": "achievements.nether.uneasy_alliance.description",
+        "parent": "return_to_sender",
         "column": 3,
         "row": 2,
-        "strongDependence": true,
+        "hidden": true,
         "type": "challenge",
-        "item": {
-          "id": 370
-        }
+        "icon": 370
       }
     ]
   }

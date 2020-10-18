@@ -1,272 +1,144 @@
 {
   "groups": [
     {
-      "unique": "story",
+      "uid": "story",
       "name": "Story",
-      "bgTexture": "groups_bg.stone",
-      "icon": {
-        "id": 1
-      }
+      "background": "groups_bg.stone",
+      "icon": 1
     }
   ],
   "achievements": {
     "story": [
       {
-        "unique": "root",
-        "name": {
-          "text": "Minecraft",
-          "translate": "achievements.story.root.title"
-        },
-        "description": {
-          "text": "The heart and story of the game",
-          "translate": "achievements.story.root.description"
-        },
+        "uid": "root",
+        "name": "achievements.story.root.title",
+        "description": "achievements.story.root.description",
         "column": 1,
         "row": 2,
-        "item": {
-          "id": 2
-        }
+        "icon": 2
       },
       {
-        "unique": "mine_stone",
-        "name": {
-          "text": "Stone Age",
-          "translate": "achievements.story.mine_stone.title"
-        },
-        "description": {
-          "text": "Mine stone with your new pickaxe",
-          "translate": "achievements.story.mine_stone.description"
-        },
-        "parent": {
-          "unique": "root"
-        },
-        "strongDependence": true,
+        "uid": "mine_stone",
+        "name": "achievements.story.mine_stone.title",
+        "description": "achievements.story.mine_stone.description",
+        "parent": "root",
+        "hidden": true,
         "column": 2,
         "row": 2,
-        "item": {
-          "id": 270
-        }
+        "icon": 270
       },
       {
-        "unique": "upgrade_tools",
-        "name": {
-          "text": "Getting an Upgrade",
-          "translate": "achievements.story.upgrade_tools.title"
-        },
-        "description": {
-          "text": "Construct a better pickaxe",
-          "translate": "achievements.story.upgrade_tools.description"
-        },
-        "parent": {
-          "unique": "mine_stone"
-        },
-        "strongDependence": true,
+        "uid": "upgrade_tools",
+        "name": "achievements.story.upgrade_tools.title",
+        "description": "achievements.story.upgrade_tools.description",
+        "parent": "mine_stone",
+        "hidden": true,
         "column": 3,
         "row": 2,
-        "item": {
-          "id": 274
-        }
+        "icon": 274
       },
       {
-        "unique": "obtain_armor",
-        "name": {
-          "text": "Suit Up",
-          "translate": "achievements.story.obtain_armor.title"
-        },
-        "description": {
-          "text": "Protect yourself with a piece of iron armor",
-          "translate": "achievements.story.obtain_armor.description"
-        },
-        "parent": {
-          "unique": "upgrade_tools"
-        },
-        "strongDependence": true,
+        "uid": "obtain_armor",
+        "name": "achievements.story.obtain_armor.title",
+        "description": "achievements.story.obtain_armor.description",
+        "parent": "upgrade_tools",
+        "hidden": true,
         "column": 4,
         "row": 0,
-        "item": {
-          "id": 307
-        }
+        "icon": 307
       },
       {
-        "unique": "lava_bucket",
-        "name": {
-          "text": "Hot Stuff",
-          "translate": "achievements.story.lava_bucket.title"
-        },
-        "description": {
-          "text": "Drain a bucket with lava",
-          "translate": "achievements.story.lava_bucket.description"
-        },
-        "parent": {
-          "unique": "upgrade_tools"
-        },
-        "strongDependence": true,
+        "uid": "lava_bucket",
+        "name": "achievements.story.lava_bucket.title",
+        "description": "achievements.story.lava_bucket.description",
+        "parent": "upgrade_tools",
+        "hidden": true,
         "column": 4,
         "row": 1,
-        "item": {
+        "icon": {
           "id": 325,
           "data": 10
         }
       },
       {
-        "unique": "iron_tools",
-        "name": {
-          "text": "Isn't It Iron Pick",
-          "translate": "achievements.story.iron_tools.title"
-        },
-        "description": {
-          "text": "Upgrade your pickaxe",
-          "translate": "achievements.story.iron_tools.description"
-        },
-        "parent": {
-          "unique": "upgrade_tools"
-        },
-        "strongDependence": true,
+        "uid": "iron_tools",
+        "name": "achievements.story.iron_tools.title",
+        "description": "achievements.story.iron_tools.description",
+        "parent": "upgrade_tools",
+        "hidden": true,
         "column": 4,
         "row": 2,
-        "item": {
-          "id": 257
-        }
+        "icon": 257
       },
       {
-        "unique": "mine_diamond",
-        "name": {
-          "text": "Diamonds!",
-          "translate": "achievements.story.mine_diamond.title"
-        },
-        "description": {
-          "text": "Acquire diamonds",
-          "translate": "achievements.story.mine_diamond.description"
-        },
-        "parent": {
-          "unique": "iron_tools"
-        },
-        "strongDependence": true,
+        "uid": "mine_diamond",
+        "name": "achievements.story.mine_diamond.title",
+        "description": "achievements.story.mine_diamond.description",
+        "parent": "iron_tools",
+        "hidden": true,
         "column": 5,
         "row": 2,
-        "item": {
-          "id": 264
-        }
+        "icon": 264
       },
       {
-        "unique": "shiny_gear",
-        "name": {
-          "text": "Cover Me With Diamonds",
-          "translate": "achievements.story.shiny_gear.title"
-        },
-        "description": {
-          "text": "Diamond armor saves lives",
-          "translate": "achievements.story.shiny_gear.description"
-        },
-        "parent": {
-          "unique": "mine_diamond"
-        },
-        "strongDependence": true,
+        "uid": "shiny_gear",
+        "name": "achievements.story.shiny_gear.title",
+        "description": "achievements.story.shiny_gear.description",
+        "parent": "mine_diamond",
+        "hidden": true,
         "column": 6,
         "row": 2,
-        "item": {
-          "id": 311
-        }
+        "icon": 311
       },
       {
-        "unique": "form_obsidian",
-        "name": {
-          "text": "Ice Bucket Challenge",
-          "translate": "achievements.story.form_obsidian.title"
-        },
-        "description": {
-          "text": "Form and mine a block of Obsidian",
-          "translate": "achievements.story.form_obsidian.description"
-        },
-        "parent": {
-          "unique": "lava_bucket"
-        },
-        "strongDependence": true,
+        "uid": "form_obsidian",
+        "name": "achievements.story.form_obsidian.title",
+        "description": "achievements.story.form_obsidian.description",
+        "parent": "lava_bucket",
+        "hidden": true,
         "column": 5,
         "row": 1,
-        "item": {
-          "id": 49
-        }
+        "icon": 49
       },
       {
-        "unique": "enter_the_nether",
-        "name": {
-          "text": "We Need to Go Deeper",
-          "translate": "achievements.story.enter_the_nether.title"
-        },
-        "description": {
-          "text": "Build, light and enter a Nether Portal",
-          "translate": "achievements.story.enter_the_nether.description"
-        },
-        "parent": {
-          "unique": "form_obsidian"
-        },
-        "strongDependence": true,
+        "uid": "enter_the_nether",
+        "name": "achievements.story.enter_the_nether.title",
+        "description": "achievements.story.enter_the_nether.description",
+        "parent": "form_obsidian",
+        "hidden": true,
         "column": 6,
         "row": 1,
-        "item": {
-          "id": 259
-        }
+        "icon": 259
       },
       {
-        "unique": "follow_ender_eye",
-        "name": {
-          "text": "Eye Spy",
-          "translate": "achievements.story.follow_ender_eye.title"
-        },
-        "description": {
-          "text": "Follow an Ender Eye",
-          "translate": "achievements.story.follow_ender_eye.description"
-        },
-        "parent": {
-          "unique": "enter_the_nether"
-        },
-        "strongDependence": true,
+        "uid": "follow_ender_eye",
+        "name": "achievements.story.follow_ender_eye.title",
+        "description": "achievements.story.follow_ender_eye.description",
+        "parent": "enter_the_nether",
+        "hidden": true,
         "column": 7,
         "row": 1,
-        "item": {
-          "id": 381
-        }
+        "icon": 381
       },
       {
-        "unique": "enter_the_end",
-        "name": {
-          "text": "The End?",
-          "translate": "achievements.story.enter_the_end.title"
-        },
-        "description": {
-          "text": "Enter the End Portal",
-          "translate": "achievements.story.enter_the_end.description"
-        },
-        "parent": {
-          "unique": "follow_ender_eye"
-        },
-        "strongDependence": true,
+        "uid": "enter_the_end",
+        "name": "achievements.story.enter_the_end.title",
+        "description": "achievements.story.enter_the_end.description",
+        "parent": "follow_ender_eye",
+        "hidden": true,
         "column": 8,
         "row": 1,
-        "item": {
-          "id": 121
-        }
+        "icon": 121
       },
       {
-        "unique": "kill_dragon",
-        "name": {
-          "text": "Free the End",
-          "translate": "achievements.story.kill_dragon.title"
-        },
-        "description": {
-          "text": "Good luck",
-          "translate": "achievements.end.story.description"
-        },
-        "parent": {
-          "unique": "enter_the_end"
-        },
+        "uid": "kill_dragon",
+        "name": "achievements.story.kill_dragon.title",
+        "description": "achievements.end.story.description",
+        "parent": "enter_the_end",
         "column": 8,
         "row": 2,
-        "strongDependence": true,
-        "item": {
-          "id": 276
-        }
+        "hidden": true,
+        "icon": 276
       }
     ]
   }
