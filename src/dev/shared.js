@@ -1,9 +1,13 @@
 ModAPI.registerAPI("AchievementsAPI", {
-    AchievementPopup: AchievementPopup,
-    AchievementAPI: AchievementAPI,
-    AchievementsUI: AchievementsUI,
-    AchievementType: AchievementType,
-    Connection: Connection,
+    Achievement,
+    AchievementAPI,
+    AchievementGroup,
+    AchievementsData,
+    AchievementsUI,
+    AchievementType,
+    AchievementPopup,
+    Connection,
+
     requireGlobal: function (command) {
         return eval(command);
     }
