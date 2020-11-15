@@ -1,9 +1,7 @@
-interface ISavedAchievement {
-    [key: number]: IFullData //player uid
-}
+type ISavedAchievement = Record<number, IFullData>;
 
 interface IAchievementsSaver {
-    data: Dictionary<Dictionary<ISavedAchievement>>
+    data: Record<string, Record<string, ISavedAchievement>>
     _format: number
 }
 
@@ -13,7 +11,7 @@ Saver.addSavesScope("AchievementsScope",
         if (!scope._format) {
             Logger.Log("Old saves detected. Converting...", LOG_TAG);
             for (let groupKey in scope) {
-                const group: Dictionary<ISavedAchievement> = {};
+                const group: Record<string, ISavedAchievement> = {};
                 // @ts-ignore
                 const data = scope[groupKey];
 
@@ -54,7 +52,7 @@ Saver.addSavesScope("AchievementsScope",
 
         for (let groupKey in AchievementAPI.groups) {
             const group = AchievementAPI.groups[groupKey];
-            const saved: Dictionary<ISavedAchievement> = {};
+            const saved: Record<string, ISavedAchievement> = {};
             for (let childKey in group.children) {
                 saved[childKey] = group.children[childKey].serialize();
             }

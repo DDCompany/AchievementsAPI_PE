@@ -1,11 +1,11 @@
 interface IFullData {
     completed: boolean
     progress: number
-    custom: Dictionary<any>
+    custom: Record<string, any>
 }
 
 class Achievement {
-    private _dataFor: { [key: number]: AchievementsData } = {};
+    private _dataFor: Record<number, AchievementsData> = {};
     private readonly _parent: Nullable<Achievement>;
     private readonly _description: IConvertedAchievement;
 

@@ -1,5 +1,5 @@
 class AchievementGroup {
-    private readonly _children: Dictionary<Achievement> = {};
+    private readonly _children: Record<string, Achievement> = {};
 
     constructor(private _description: IAchievementGroup) {
         if (!_description.uid) {

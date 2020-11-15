@@ -2,7 +2,7 @@ class AchievementAPI {
     /**
      * Array of registered groups by <i>AchievementAPI.registerGroup</i>
      */
-    static groups: Dictionary<AchievementGroup> = {};
+    static groups: Record<string, AchievementGroup> = {};
 
     /**
      * Register new group
