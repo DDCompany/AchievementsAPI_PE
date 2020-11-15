@@ -105,7 +105,6 @@ class AchievementsData {
         }
 
         this.isCompleted = true;
-        Callback.invokeCallback("onAchieve", this._achievement.group.prototype, description);
         Callback.invokeCallback("onAchievementCompleted", this);
     }
 
