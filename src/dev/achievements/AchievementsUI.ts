@@ -152,8 +152,8 @@ class AchievementsUI {
             }
             contentExist = true;
 
-            let x = this.getAchievementX(achievement.description, size);
-            let y = this.getAchievementY(achievement.description, size);
+            let x = this.getAchievementX(achievement.prototype, size);
+            let y = this.getAchievementY(achievement.prototype, size);
 
             elements[index] = {
                 type: "slot",
@@ -206,7 +206,7 @@ class AchievementsUI {
                         let achievement = group.getChild(index);
                         let parent = achievement.parent;
 
-                        if (achievement.description.connection === Connection.NONE) {
+                        if (achievement.prototype.connection === Connection.NONE) {
                             continue;
                         }
 
@@ -217,12 +217,12 @@ class AchievementsUI {
 
                         let parentItem = group.getChild(parent.uid);
                         if (parentItem) {
-                            let x = AchievementsUI.getAchievementX(achievement.description, size);
-                            let y = AchievementsUI.getAchievementY(achievement.description, size);
+                            let x = AchievementsUI.getAchievementX(achievement.prototype, size);
+                            let y = AchievementsUI.getAchievementY(achievement.prototype, size);
                             let _x = (x + halfOfSize) * scale;
                             let _y = (y + halfOfSize) * scale;
-                            let parentX = AchievementsUI.getAchievementX(parentItem.description, size);
-                            let parentY = AchievementsUI.getAchievementY(parentItem.description, size);
+                            let parentX = AchievementsUI.getAchievementX(parentItem.prototype, size);
+                            let parentY = AchievementsUI.getAchievementY(parentItem.prototype, size);
                             let _parentX = (parentX + halfOfSize) * scale;
                             let _parentY = (parentY + halfOfSize) * scale;
 
@@ -235,7 +235,7 @@ class AchievementsUI {
                                 this.path.moveTo(_x, _y);
                                 this.path.lineTo(x2, _y);
 
-                                switch (achievement.description.connection) {
+                                switch (achievement.prototype.connection) {
                                     case Connection.HORIZONTAL:
                                         this.path.lineTo(x2, _parentY);
                                         this.path.lineTo(_parentX, _parentY);

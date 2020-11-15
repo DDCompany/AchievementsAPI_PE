@@ -35,7 +35,7 @@ class AchievementsData {
             type = "locked";
         }
 
-        return "achievement_bg." + (this._achievement.description.type || "default") + "_" + type;
+        return "achievement_bg." + (this._achievement.prototype.type || "default") + "_" + type;
     }
 
     get progress(): number {
@@ -64,7 +64,7 @@ class AchievementsData {
             return;
         }
 
-        const description = this._achievement.description;
+        const description = this._achievement.prototype;
         if (description.progressMax && ++this._fullData.progress < description.progressMax) {
             return;
         }
@@ -101,7 +101,7 @@ class AchievementsData {
         }
 
         this.isCompleted = true;
-        Callback.invokeCallback("onAchieve", this._achievement.group.description, description);
+        Callback.invokeCallback("onAchieve", this._achievement.group.prototype, description);
         Callback.invokeCallback("onAchievementCompleted", this);
     }
 

@@ -1,14 +1,14 @@
 class AchievementGroup {
     private readonly _children: Record<string, Achievement> = {};
 
-    constructor(private _description: IAchievementGroup) {
-        if (!_description.uid) {
+    constructor(private _prototype: IAchievementGroup) {
+        if (!_prototype.uid) {
             throw new IllegalArgumentException("Invalid uid");
         }
 
-        if (typeof _description.icon === "number") {
-            _description.icon = {
-                id: _description.icon
+        if (typeof _prototype.icon === "number") {
+            _prototype.icon = {
+                id: _prototype.icon
             };
         }
     }
@@ -43,38 +43,38 @@ class AchievementGroup {
     }
 
     get uid() {
-        return this._description.uid;
+        return this._prototype.uid;
     }
 
     get children() {
         return this._children;
     }
 
-    get description() {
-        return this._description;
+    get prototype() {
+        return this._prototype;
     }
 
     get width() {
-        return this._description.width;
+        return this._prototype.width;
     }
 
     get height() {
-        return this._description.height;
+        return this._prototype.height;
     }
 
     get name() {
-        return this._description.name;
+        return this._prototype.name;
     }
 
     get icon() {
-        return this._description.icon as IItemIcon;
+        return this._prototype.icon as IItemIcon;
     }
 
     get nodeSize() {
-        return this._description.size;
+        return this._prototype.size;
     }
 
     get backgroundTexture() {
-        return this._description.background;
+        return this._prototype.background;
     }
 }

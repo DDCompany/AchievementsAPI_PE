@@ -7,7 +7,7 @@ interface IFullData {
 class Achievement {
     private _dataFor: Record<number, AchievementsData> = {};
     private readonly _parent: Nullable<Achievement>;
-    private readonly _description: IConvertedAchievement;
+    private readonly _prototype: IConvertedAchievement;
 
     constructor(private _group: AchievementGroup,
                 _description: IAchievement) {
@@ -26,7 +26,7 @@ class Achievement {
         }
 
         _description.connection = _description.connection || Connection.HORIZONTAL;
-        this._description = _description as IConvertedAchievement;
+        this._prototype = _description as IConvertedAchievement;
     }
 
     getFor(player: number) {
@@ -68,7 +68,7 @@ class Achievement {
     }
 
     get hidden() {
-        return this._description.hidden;
+        return this._prototype.hidden;
     }
 
     get parent() {
@@ -76,15 +76,15 @@ class Achievement {
     }
 
     get uid(): string {
-        return this._description.uid;
+        return this._prototype.uid;
     }
 
-    get description() {
-        return this._description;
+    get prototype() {
+        return this._prototype;
     }
 
     get icon() {
-        return this._description.icon;
+        return this._prototype.icon;
     }
 
     get group() {
