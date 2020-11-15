@@ -17,7 +17,7 @@ Saver.addSavesScope("AchievementsScope",
 
                 for (let key in data) {
                     group[key] = {
-                        [Player.get()]: data[key]
+                        [Player.get()]: data[key],
                     };
                 }
 
@@ -62,7 +62,7 @@ Saver.addSavesScope("AchievementsScope",
 
         return {
             data: data,
-            _format: 1
+            _format: 1,
         };
-    }
+    },
 );

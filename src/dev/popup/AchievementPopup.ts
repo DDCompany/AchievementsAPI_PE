@@ -31,7 +31,7 @@ class AchievementPopup {
             x: 700,
             y: 0,
             width: 300,
-            height: 60
+            height: 60,
         },
 
         drawing: [
@@ -43,8 +43,8 @@ class AchievementPopup {
                 width: 1000,
                 height: 200,
                 bitmap: "achievements_api.frames.achievement",
-                scale: 5
-            }
+                scale: 5,
+            },
         ],
 
         elements: {
@@ -53,7 +53,7 @@ class AchievementPopup {
                 text: "",
                 x: 190,
                 y: 30,
-                font: {color: android.graphics.Color.YELLOW, size: 50}
+                font: {color: android.graphics.Color.YELLOW, size: 50},
             },
 
             "description": {
@@ -61,7 +61,7 @@ class AchievementPopup {
                 text: "",
                 x: 190,
                 y: 100,
-                font: {color: android.graphics.Color.WHITE, size: 50}
+                font: {color: android.graphics.Color.WHITE, size: 50},
             },
 
             "slot": {
@@ -71,9 +71,9 @@ class AchievementPopup {
                 size: 190,
                 bitmap: "_default_slot_empty",
                 isTransparentBackground: true,
-                visual: true
-            }
-        }
+                visual: true,
+            },
+        },
     });
 
     /**

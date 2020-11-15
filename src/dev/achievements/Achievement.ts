@@ -21,46 +21,12 @@ class Achievement {
 
         if (typeof _description.icon === "number") {
             _description.icon = {
-                id: _description.icon
+                id: _description.icon,
             };
         }
 
         _description.connection = _description.connection || Connection.HORIZONTAL;
         this._prototype = _description as IConvertedAchievement;
-    }
-
-    getFor(player: number) {
-        const data = this._dataFor[player];
-        if (!data) {
-            return this._dataFor[player]
-                = new AchievementsData(player, this, null);
-        }
-
-        return data;
-    }
-
-    reset() {
-        this._dataFor = {};
-    }
-
-    private findParent(groupUID: Nullable<string>, uid: string) {
-        let child: Nullable<Achievement> = null;
-        if (!groupUID || groupUID == this.group.uid) {
-            child = this.group.getChild(uid);
-        } else {
-            const otherGroup = AchievementAPI.groups[groupUID];
-            if (otherGroup) {
-                child = otherGroup.getChild(uid);
-            } else {
-                throw new IllegalArgumentException(`Parent not found: group uid is invalid (${groupUID}:${uid})`);
-            }
-        }
-
-        if (child) {
-            return child;
-        } else {
-            throw new IllegalArgumentException(`Parent not found: achievement uid is invalid (${groupUID}:${uid})`);
-        }
     }
 
     get allData() {
@@ -92,11 +58,25 @@ class Achievement {
     }
 
     get name() {
-        return Translation.translate(this._prototype.name)
+        return Translation.translate(this._prototype.name);
     }
 
     get description() {
-        return Translation.translate(this._prototype.description)
+        return Translation.translate(this._prototype.description);
+    }
+
+    getFor(player: number) {
+        const data = this._dataFor[player];
+        if (!data) {
+            return this._dataFor[player]
+                = new AchievementsData(player, this, null);
+        }
+
+        return data;
+    }
+
+    reset() {
+        this._dataFor = {};
     }
 
     deserialize(data: ISavedAchievement) {
@@ -112,5 +92,25 @@ class Achievement {
             json[key] = this._dataFor[key].serialize();
         }
         return json;
+    }
+
+    private findParent(groupUID: Nullable<string>, uid: string) {
+        let child: Nullable<Achievement> = null;
+        if (!groupUID || groupUID == this.group.uid) {
+            child = this.group.getChild(uid);
+        } else {
+            const otherGroup = AchievementAPI.groups[groupUID];
+            if (otherGroup) {
+                child = otherGroup.getChild(uid);
+            } else {
+                throw new IllegalArgumentException(`Parent not found: group uid is invalid (${groupUID}:${uid})`);
+            }
+        }
+
+        if (child) {
+            return child;
+        } else {
+            throw new IllegalArgumentException(`Parent not found: achievement uid is invalid (${groupUID}:${uid})`);
+        }
     }
 }

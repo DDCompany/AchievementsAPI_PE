@@ -10,6 +10,6 @@ ModAPI.registerAPI("AchievementsAPI", {
 
     requireGlobal: function (command) {
         return eval(command);
-    }
+    },
 });
 Logger.Log("AchievementsAPI shared with name AchievementsAPI", "API");

@@ -67,12 +67,14 @@ Callback.addCallback("EntityDeath", function (entity, attacker) {
     const typeOfVictim = Entity.getType(entity);
     switch (typeOfVictim) {
         case EntityType.WHITHER_SKELETON:
-            if (Player.getDimension() === DimensionType.NETHER)
+            if (Player.getDimension() === DimensionType.NETHER) {
                 AchievementAPI.give(attacker, "nether", "kill_wither_skeleton");
+            }
             break;
         case EntityType.GHAST:
-            if (Player.getDimension() === DimensionType.NORMAL)
+            if (Player.getDimension() === DimensionType.NORMAL) {
                 AchievementAPI.give(attacker, "nether", "uneasy_alliance");
+            }
             break;
         case EntityType.BLAZE:
             AchievementAPI.give(attacker, "nether", "obtain_blaze_rod");
@@ -89,7 +91,8 @@ Callback.addCallback("EntityAdded", function (entity) {
         const source = BlockSource.getDefaultForActor(entity);
         const pos = Entity.getPosition(entity);
         const range = 40;
-        source.fetchEntitiesInAABB(pos.x - range, pos.y - range, pos.z - range, pos.x + range, pos.y + range, pos.z + range, EntityType.PLAYER, false)
+        source.fetchEntitiesInAABB(pos.x - range, pos.y - range, pos.z - range, pos.x + range, pos.y + range,
+            pos.z + range, EntityType.PLAYER, false)
             .forEach(player =>
                 AchievementAPI.give(player, "nether", "summon_wither"));
     }

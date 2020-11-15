@@ -8,38 +8,9 @@ class AchievementGroup {
 
         if (typeof _prototype.icon === "number") {
             _prototype.icon = {
-                id: _prototype.icon
+                id: _prototype.icon,
             };
         }
-    }
-
-    give(player: number, uid: string) {
-        const achievement = this.getChild(uid);
-        if (!achievement) {
-            throw new IllegalArgumentException("Invalid achievement uid");
-        }
-        achievement.getFor(player).give();
-    }
-
-    addChild(child: Achievement) {
-        if (this._children[child.uid]) {
-            throw new IllegalArgumentException(`Achievement with uid '${child.uid}' already registered`);
-        }
-
-        this._children[child.uid] = child;
-    }
-
-    /**
-     * Give all achievements of the group
-     */
-    giveAll(player: number) {
-        for (let key in this._children) {
-            this._children[key].getFor(player).give();
-        }
-    }
-
-    getChild(uid: string) {
-        return this._children[uid];
     }
 
     get uid() {
@@ -76,5 +47,34 @@ class AchievementGroup {
 
     get backgroundTexture() {
         return this._prototype.background;
+    }
+
+    give(player: number, uid: string) {
+        const achievement = this.getChild(uid);
+        if (!achievement) {
+            throw new IllegalArgumentException("Invalid achievement uid");
+        }
+        achievement.getFor(player).give();
+    }
+
+    addChild(child: Achievement) {
+        if (this._children[child.uid]) {
+            throw new IllegalArgumentException(`Achievement with uid '${child.uid}' already registered`);
+        }
+
+        this._children[child.uid] = child;
+    }
+
+    /**
+     * Give all achievements of the group
+     */
+    giveAll(player: number) {
+        for (let key in this._children) {
+            this._children[key].getFor(player).give();
+        }
+    }
+
+    getChild(uid: string) {
+        return this._children[uid];
     }
 }

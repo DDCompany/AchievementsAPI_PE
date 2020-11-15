@@ -8,8 +8,8 @@ class AchievementsData {
         this._fullData = data ?? {
             progress: 0,
             custom: {},
-            completed: false
-        }
+            completed: false,
+        };
     }
 
     get isCompleted() {
@@ -95,13 +95,14 @@ class AchievementsData {
                 item: {
                     id: item.id || 1,
                     data: item.data || 0,
-                    count: 1
-                }
+                    count: 1,
+                },
             });
         }
 
         if (description.announce ?? true) {
-            Game.message(`${Entity.getNameTag(this.player)} ${Translation.translate("achievements_api.made")} ${Native.Color.GREEN}[${this.achievement.name}]`)
+            Game.message(`${Entity.getNameTag(this.player)} ${Translation.translate(
+                "achievements_api.made")} ${Native.Color.GREEN}[${this.achievement.name}]`);
         }
 
         this.isCompleted = true;

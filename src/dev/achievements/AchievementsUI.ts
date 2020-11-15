@@ -10,7 +10,7 @@ class AchievementsUI {
             x: 244,
             y: (UI.getScreenHeight() - 370) / 2,
             width: 512,
-            height: 370
+            height: 370,
         },
         drawing: [
             {type: "frame", x: 0, y: 0, width: 1000, height: 725, bitmap: "achievements_api.frames.window", scale: 5},
@@ -19,8 +19,8 @@ class AchievementsUI {
                 text: Translation.translate("achievements_api.achievements"),
                 x: 80,
                 y: 65,
-                font: {size: 35, color: android.graphics.Color.DKGRAY}
-            }
+                font: {size: 35, color: android.graphics.Color.DKGRAY},
+            },
         ],
         elements: {
             "slotGroupIcon": {
@@ -30,14 +30,14 @@ class AchievementsUI {
                 size: 100,
                 visual: true,
                 bitmap: "_default_slot_empty",
-                isTransparentBackground: true
+                isTransparentBackground: true,
             },
             "textGroupName": {
                 type: "text",
                 x: 180,
                 y: 630,
                 text: "",
-                font: {size: 40, color: android.graphics.Color.DKGRAY}
+                font: {size: 40, color: android.graphics.Color.DKGRAY},
             },
             "btnClose": {
                 type: "button",
@@ -50,15 +50,15 @@ class AchievementsUI {
                     onClick() {
                         AchievementsUI.windowParent.close();
                         AchievementsUI.windowArea.close();
-                    }
-                }
+                    },
+                },
             },
             "textPageIndex": {
                 type: "text",
                 x: 730,
                 y: 630,
                 text: "",
-                font: {size: 40, color: android.graphics.Color.DKGRAY}
+                font: {size: 40, color: android.graphics.Color.DKGRAY},
             },
             "btnNext": {
                 type: "button",
@@ -71,8 +71,8 @@ class AchievementsUI {
                     onClick() {
                         AchievementsUI.currentIndex++;
                         AchievementsUI.openAchievementsWindow();
-                    }
-                }
+                    },
+                },
             },
             "btnPrevious": {
                 type: "button",
@@ -85,21 +85,21 @@ class AchievementsUI {
                     onClick() {
                         AchievementsUI.currentIndex--;
                         AchievementsUI.openAchievementsWindow();
-                    }
-                }
-            }
-        }
+                    },
+                },
+            },
+        },
     });
     static groupsShowUI = new UI.Window({
         location: {
             x: 1000 / 2 - 80,
             y: 5,
             width: 45,
-            height: 45
+            height: 45,
         },
 
         drawing: [
-            {type: "color", color: android.graphics.Color.argb(0, 0, 0, 0)}
+            {type: "color", color: android.graphics.Color.argb(0, 0, 0, 0)},
         ],
 
         elements: {
@@ -109,10 +109,10 @@ class AchievementsUI {
                         AchievementsUI.currentIndex = 0;
                         AchievementsUI.parentContainer.openAs(AchievementsUI.windowParent);
                         AchievementsUI.openAchievementsWindow();
-                    }
-                }
-            }
-        }
+                    },
+                },
+            },
+        },
     });
 
     static init() {
@@ -167,8 +167,8 @@ class AchievementsUI {
                 clicker: {
                     onClick() {
                         AchievementsUI.showInformationToast(achievementData);
-                    }
-                }
+                    },
+                },
             };
 
             const item = achievement.icon || {id: 0, data: 0};
@@ -274,7 +274,7 @@ class AchievementsUI {
 
                 canvas.drawPath(this.path, this.paint2);
                 canvas.drawPath(this.path, this.paint);
-            }
+            },
         };
     }
 
@@ -288,10 +288,11 @@ class AchievementsUI {
                     80 * scale,
                     false);
                 let paint = new android.graphics.Paint();
-                paint.setShader(new android.graphics.BitmapShader(bitmap, android.graphics.Shader.TileMode.REPEAT, android.graphics.Shader.TileMode.REPEAT));
+                paint.setShader(new android.graphics.BitmapShader(bitmap, android.graphics.Shader.TileMode.REPEAT,
+                    android.graphics.Shader.TileMode.REPEAT));
                 canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
                 bitmap.recycle();
-            }
+            },
         });
     }
 
@@ -330,7 +331,7 @@ class AchievementsUI {
                 x: 0,
                 y: 200,
                 text: translated,
-                font: {size: 40, color: android.graphics.Color.WHITE}
+                font: {size: 40, color: android.graphics.Color.WHITE},
             };
         }
 
@@ -345,11 +346,11 @@ class AchievementsUI {
                 width: 432,
                 height: 260,
                 scrollX: width,
-                scrollY: height
+                scrollY: height,
             },
 
             drawing: drawing,
-            elements: elements
+            elements: elements,
         });
 
         AchievementsUI.container.openAs(this.windowArea);
