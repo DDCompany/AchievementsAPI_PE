@@ -1,5 +1,5 @@
 interface ISavedAchievement {
-    [key: string]: IFullData //player uid
+    [key: number]: IFullData //player uid
 }
 
 interface IAchievementsSaver {
@@ -19,7 +19,7 @@ Saver.addSavesScope("AchievementsScope",
 
                 for (let key in data) {
                     group[key] = {
-                        [Player.get() + ""]: data[key]
+                        [Player.get()]: data[key]
                     };
                 }
 
@@ -44,10 +44,7 @@ Saver.addSavesScope("AchievementsScope",
                     continue;
                 }
 
-                const achievementData = data[achievementKey];
-                for (let uid in achievementData) {
-                    child.setFullData(+uid, achievementData[uid]);
-                }
+                child.deserialize(data[achievementKey]);
             }
         }
     },
@@ -58,10 +55,8 @@ Saver.addSavesScope("AchievementsScope",
         for (let groupKey in AchievementAPI.groups) {
             const group = AchievementAPI.groups[groupKey];
             const saved: Dictionary<ISavedAchievement> = {};
-
             for (let childKey in group.children) {
-                const child = group.children[childKey];
-                saved[childKey] = child.allData;
+                saved[childKey] = group.children[childKey].serialize();
             }
 
             data[groupKey] = saved;

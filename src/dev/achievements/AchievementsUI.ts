@@ -146,7 +146,7 @@ class AchievementsUI {
             let parent = achievement.parent;
 
             if (parent) {
-                if (!parent.isCompleted(Player.get()) && achievement.strongDependence) {
+                if (!achievement.parent.getFor(Player.get()).isCompleted && achievement.strongDependence) {
                     continue;
                 }
             }
@@ -161,7 +161,7 @@ class AchievementsUI {
                 y: y,
                 size: size,
                 visual: true,
-                bitmap: achievement.getTexture(Player.get()),
+                bitmap: achievement.getFor(Player.get()).texture,
                 isTransparentBackground: true,
                 clicker: {
                     onClick() {
@@ -211,7 +211,7 @@ class AchievementsUI {
                         }
 
                         if (!parent || parent.group.uid !== group.uid ||
-                            (!parent.isCompleted(Player.get()) && achievement.strongDependence)) {
+                            (!parent.getFor(Player.get()).isCompleted && achievement.strongDependence)) {
                             continue;
                         }
 

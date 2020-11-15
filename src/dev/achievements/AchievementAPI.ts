@@ -97,7 +97,7 @@ class AchievementAPI {
             throw new IllegalArgumentException(`Achievement with uid '${groupUID}' not found`);
         }
 
-        return achievement.isUnlocked(player);
+        return achievement.getFor(player).isUnlocked;
     }
 
     /**
@@ -116,7 +116,7 @@ class AchievementAPI {
      * @returns Is the achievement completed?
      */
     static isCompleted(groupUID: string, uid: string, player: number): boolean {
-        return this.groups[groupUID].getChild(uid).isCompleted(player);
+        return this.groups[groupUID].getChild(uid).getFor(player).isCompleted;
     }
 
     /**

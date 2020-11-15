@@ -13,6 +13,7 @@ achievements/IAchievement.ts
 achievements/IAchievementGroup.ts
 achievements/AchievementGroup.ts
 achievements/Achievement.ts
+achievements/AchievementsData.ts
 achievements/AchievementAPI.ts
 achievements/saver.ts
 
