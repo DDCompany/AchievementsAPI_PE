@@ -18,6 +18,10 @@ Translation.addTranslation("achievements_api.nothing", {
     en: "Nothing to Show :(",
     ru: "Здесь ничего нет :("
 });
+Translation.addTranslation("achievements_api.made", {
+    en: "has made the achievement",
+    ru: "выполнил достижение"
+});
 
 //Story
 Translation.addTranslation("achievements.story", {en: "Minecraft", ru: "Minecraft"});

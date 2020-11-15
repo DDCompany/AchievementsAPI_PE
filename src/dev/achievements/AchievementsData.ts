@@ -100,6 +100,10 @@ class AchievementsData {
             });
         }
 
+        if (description.announce ?? true) {
+            Game.message(`${Entity.getNameTag(this.player)} ${Translation.translate("achievements_api.made")} ${Native.Color.GREEN}[${this.achievement.name}]`)
+        }
+
         this.isCompleted = true;
         Callback.invokeCallback("onAchieve", this._achievement.group.prototype, description);
         Callback.invokeCallback("onAchievementCompleted", this);

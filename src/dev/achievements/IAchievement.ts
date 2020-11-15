@@ -78,6 +78,12 @@ interface IAchievement {
     showPopup?: boolean;
 
     /**
+     * Do show message in chat when achievement completed?
+     * @default <i>true</i>
+     */
+    announce?: boolean
+
+    /**
      * Achievement icon
      */
     icon?: number | IItemIcon;
