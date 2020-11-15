@@ -18,7 +18,6 @@ achievements/saver.ts
 
 #VANILLA ACHIEVEMENTS
 vanilla/achievements.js
-vanilla/translation.ts
 
 #OTHER
 commands.ts
