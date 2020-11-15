@@ -67,7 +67,7 @@ class Achievement {
         return this._dataFor;
     }
 
-    get strongDependence() {
+    get hidden() {
         return this._description.hidden;
     }
 
