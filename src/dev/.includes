@@ -1,5 +1,5 @@
 #HEADER
-header.js
+header.ts
 translation.ts
 
 #API
@@ -17,8 +17,8 @@ achievements/AchievementAPI.ts
 achievements/saver.ts
 
 #VANILLA ACHIEVEMENTS
-vanilla/achievements.js
+vanilla/achievements.ts
 
 #OTHER
 commands.ts
-shared.js
+shared.ts
