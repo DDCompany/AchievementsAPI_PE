@@ -155,17 +155,18 @@ class AchievementsUI {
             let x = this.getAchievementX(achievement.prototype, size);
             let y = this.getAchievementY(achievement.prototype, size);
 
+            const achievementData = achievement.getFor(Player.get());
             elements[index] = {
                 type: "slot",
                 x: x,
                 y: y,
                 size: size,
                 visual: true,
-                bitmap: achievement.getFor(Player.get()).texture,
+                bitmap: achievementData.texture,
                 isTransparentBackground: true,
                 clicker: {
                     onClick() {
-                        //TODO
+                        AchievementsUI.showInformationToast(achievementData);
                     }
                 }
             };
@@ -178,6 +179,22 @@ class AchievementsUI {
         }
 
         return contentExist;
+    }
+
+    static showInformationToast(data: AchievementsData) {
+        const achievement = data.achievement;
+        let info = Translation.translate(achievement.name);
+
+        if (achievement.prototype.progressMax) {
+            info += `(${data.progress}/${achievement.prototype.progressMax})`;
+        }
+
+        const description = achievement.description;
+        if (description) {
+            info += "\n" + description;
+        }
+
+        alert(info);
     }
 
     static initConditionsForWindow(group: AchievementGroup, size: number, elements: UI.UIElementSet) {

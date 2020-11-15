@@ -91,6 +91,14 @@ class Achievement {
         return this._group;
     }
 
+    get name() {
+        return Translation.translate(this._prototype.name)
+    }
+
+    get description() {
+        return Translation.translate(this._prototype.description)
+    }
+
     deserialize(data: ISavedAchievement) {
         this.reset();
         for (let key in data) {
