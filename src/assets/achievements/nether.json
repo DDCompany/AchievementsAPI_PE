@@ -2,7 +2,7 @@
   "groups": [
     {
       "uid": "nether",
-      "name": "Nether",
+      "name": "achievements.nether",
       "background": "achievements_api.bgs.nether",
       "icon": 87
     }

@@ -20,6 +20,8 @@ Translation.addTranslation("achievements_api.nothing", {
 });
 
 //Story
+Translation.addTranslation("achievements.story", {en: "Minecraft", ru: "Minecraft"});
+
 Translation.addTranslation("achievements.story.root.title", {en: "Minecraft", ru: "Minecraft"});
 Translation.addTranslation("achievements.story.root.description", {
     en: "The heart and story of the game",
@@ -102,6 +104,8 @@ Translation.addTranslation("achievements.story.shiny_gear.description", {
 });
 
 //Nether
+Translation.addTranslation("achievements.nether", {en: "Nether", ru: "Нижний мир"});
+
 Translation.addTranslation("achievements.nether.root.title", {en: "Nether", ru: "Нижний мир"});
 Translation.addTranslation("achievements.nether.root.description", {
     en: "Bring summer clothes",

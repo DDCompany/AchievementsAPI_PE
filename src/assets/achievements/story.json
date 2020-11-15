@@ -2,7 +2,7 @@
   "groups": [
     {
       "uid": "story",
-      "name": "Story",
+      "name": "achievements.story",
       "background": "achievements_api.bgs.stone",
       "icon": 1
     }
