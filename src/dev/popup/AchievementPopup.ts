@@ -36,7 +36,15 @@ class AchievementPopup {
 
         drawing: [
             {type: "color", color: android.graphics.Color.rgb(33, 33, 33)},
-            {type: "frame", x: 0, y: 0, width: 1000, height: 200, bitmap: "frame_achievement", scale: 5}
+            {
+                type: "frame",
+                x: 0,
+                y: 0,
+                width: 1000,
+                height: 200,
+                bitmap: "achievements_api.frames.achievement",
+                scale: 5
+            }
         ],
 
         elements: {

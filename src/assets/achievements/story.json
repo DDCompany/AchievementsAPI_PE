@@ -3,7 +3,7 @@
     {
       "uid": "story",
       "name": "Story",
-      "background": "groups_bg.stone",
+      "background": "achievements_api.bgs.stone",
       "icon": 1
     }
   ],

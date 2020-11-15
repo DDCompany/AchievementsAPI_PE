@@ -35,7 +35,7 @@ class AchievementsData {
             type = "locked";
         }
 
-        return "achievement_bg." + (this._achievement.prototype.type || "default") + "_" + type;
+        return "achievements_api.textures." + (this._achievement.prototype.type || "default") + "_" + type;
     }
 
     get progress(): number {

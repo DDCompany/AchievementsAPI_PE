@@ -13,7 +13,7 @@ class AchievementsUI {
             height: 370
         },
         drawing: [
-            {type: "frame", x: 0, y: 0, width: 1000, height: 725, bitmap: "achievements_frame", scale: 5},
+            {type: "frame", x: 0, y: 0, width: 1000, height: 725, bitmap: "achievements_api.frames.window", scale: 5},
             {
                 type: "text",
                 text: Translation.translate("achievements_api.achievements"),
@@ -43,8 +43,8 @@ class AchievementsUI {
                 type: "button",
                 x: 910,
                 y: 15,
-                bitmap: "achievements_btn_close",
-                bitmap2: "achievements_btn_close_hover",
+                bitmap: "achievements_api.btn.close",
+                bitmap2: "achievements_api.btn.close_hover",
                 scale: 5,
                 clicker: {
                     onClick() {
@@ -64,8 +64,8 @@ class AchievementsUI {
                 type: "button",
                 x: 860,
                 y: 620,
-                bitmap: "btn_achievements_next",
-                bitmap2: "btn_achievements_next_hover",
+                bitmap: "achievements_api.btn.next",
+                bitmap2: "achievements_api.btn.next_hover",
                 scale: 3,
                 clicker: {
                     onClick() {
@@ -78,8 +78,8 @@ class AchievementsUI {
                 type: "button",
                 x: 640,
                 y: 620,
-                bitmap: "btn_achievements_previous",
-                bitmap2: "btn_achievements_previous_hover",
+                bitmap: "achievements_api.btn.previous",
+                bitmap2: "achievements_api.btn.previous_hover",
                 scale: 3,
                 clicker: {
                     onClick() {
@@ -104,7 +104,7 @@ class AchievementsUI {
 
         elements: {
             "btn": {
-                type: "button", x: 0, y: 0, bitmap: "btn_achievements", scale: 60, clicker: {
+                type: "button", x: 0, y: 0, bitmap: "achievements_api.btn.achievements", scale: 60, clicker: {
                     onClick() {
                         AchievementsUI.currentIndex = 0;
                         AchievementsUI.parentContainer.openAs(AchievementsUI.windowParent);

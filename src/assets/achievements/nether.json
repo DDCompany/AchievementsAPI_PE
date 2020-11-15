@@ -3,7 +3,7 @@
     {
       "uid": "nether",
       "name": "Nether",
-      "background": "groups_bg.nether",
+      "background": "achievements_api.bgs.nether",
       "icon": 87
     }
   ],
