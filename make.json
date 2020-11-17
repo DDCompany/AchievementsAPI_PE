@@ -26,6 +26,10 @@
   },
   "resources": [
     {
+      "path": "src/assets/res",
+      "type": "resource_directory"
+    },
+    {
       "path": "src/assets/gui",
       "type": "gui"
     }

@@ -1,6 +1,5 @@
 class AchievementsUI {
     static groupNames: string[] = [];
-    static containerOverlay = new UI.Container();
     static container = new UI.Container();
     static parentContainer = new UI.Container();
     static currentIndex = 0;
@@ -90,33 +89,8 @@ class AchievementsUI {
             },
         },
     });
-    static groupsShowUI = new UI.Window({
-        location: {
-            x: 1000 / 2 - 80,
-            y: 5,
-            width: 45,
-            height: 45,
-        },
-
-        drawing: [
-            {type: "color", color: android.graphics.Color.argb(0, 0, 0, 0)},
-        ],
-
-        elements: {
-            "btn": {
-                type: "button", x: 0, y: 0, bitmap: "achievements_api.btn.achievements", scale: 60, clicker: {
-                    onClick() {
-                        AchievementsUI.currentIndex = 0;
-                        AchievementsUI.parentContainer.openAs(AchievementsUI.windowParent);
-                        AchievementsUI.openAchievementsWindow();
-                    },
-                },
-            },
-        },
-    });
 
     static init() {
-        this.groupsShowUI.setAsGameOverlay(true);
         this.windowParent.setBlockingBackground(true);
     }
 
@@ -372,9 +346,10 @@ class AchievementsUI {
 AchievementsUI.init();
 
 Callback.addCallback("NativeGuiChanged", (screenName: string) => {
-    if (screenName === "hud_screen" || screenName === "in_game_play_screen") {
-        AchievementsUI.containerOverlay.openAs(AchievementsUI.groupsShowUI);
-    } else {
-        AchievementsUI.containerOverlay.close();
+    if (screenName == "xbl_optional_signin_screen - gui.achievements") {
+        simulateBackPressed(); //close popup
+        AchievementsUI.currentIndex = 0;
+        AchievementsUI.parentContainer.openAs(AchievementsUI.windowParent);
+        AchievementsUI.openAchievementsWindow();
     }
 });
