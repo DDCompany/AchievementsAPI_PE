@@ -9,8 +9,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "sourceType": "module",
-    "project": "./src/dev/tsconfig.json"
+    "sourceType": "module"
   },
   "plugins": [
     "@typescript-eslint"

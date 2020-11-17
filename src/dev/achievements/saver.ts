@@ -10,12 +10,11 @@ Saver.addSavesScope("AchievementsScope",
         let groups: IAchievementsSaver["data"] = {};
         if (!scope._format) {
             Logger.Log("Old saves detected. Converting...", LOG_TAG);
-            for (let groupKey in scope) {
+            for (const groupKey in scope) {
                 const group: Record<string, ISavedAchievement> = {};
-                // @ts-ignore
                 const data = scope[groupKey];
 
-                for (let key in data) {
+                for (const key in data) {
                     group[key] = {
                         [Player.get()]: data[key],
                     };
@@ -27,7 +26,7 @@ Saver.addSavesScope("AchievementsScope",
             groups = scope.data;
         }
 
-        for (let groupKey in groups) {
+        for (const groupKey in groups) {
             const group = AchievementAPI.getGroup(groupKey);
             if (!group) {
                 Logger.Log(`Group with uid '${groupKey}' not found. Skipping...`, "WARNING");
@@ -35,7 +34,7 @@ Saver.addSavesScope("AchievementsScope",
             }
 
             const data = groups[groupKey];
-            for (let achievementKey in data) {
+            for (const achievementKey in data) {
                 const child = group.getChild(achievementKey);
                 if (!child) {
                     Logger.Log(`Achievement with uid '${achievementKey}' not found. Skipping...`, "WARNING");
@@ -50,10 +49,10 @@ Saver.addSavesScope("AchievementsScope",
     function save() {
         const data: IAchievementsSaver["data"] = {};
 
-        for (let groupKey in AchievementAPI.groups) {
+        for (const groupKey in AchievementAPI.groups) {
             const group = AchievementAPI.groups[groupKey];
             const saved: Record<string, ISavedAchievement> = {};
-            for (let childKey in group.children) {
+            for (const childKey in group.children) {
                 saved[childKey] = group.children[childKey].serialize();
             }
 

@@ -1,7 +1,7 @@
 interface IFullData {
     completed: boolean
     progress: number
-    custom: Record<string, any>
+    custom: Record<string, Record<string, unknown>>
 }
 
 class Achievement {
@@ -81,14 +81,14 @@ class Achievement {
 
     deserialize(data: ISavedAchievement) {
         this.reset();
-        for (let key in data) {
+        for (const key in data) {
             this._dataFor[key] = new AchievementsData(+key, this, data[key]);
         }
     }
 
     serialize() {
         const json = {};
-        for (let key in this._dataFor) {
+        for (const key in this._dataFor) {
             json[key] = this._dataFor[key].serialize();
         }
         return json;

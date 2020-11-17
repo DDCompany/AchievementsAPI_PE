@@ -31,7 +31,7 @@ class AchievementAPI {
             throw new IllegalArgumentException("Invalid group uid");
         }
 
-        let achievement = new Achievement(group, description);
+        const achievement = new Achievement(group, description);
         group.addChild(achievement);
         return achievement;
     }
@@ -42,7 +42,7 @@ class AchievementAPI {
      * @param descriptions - descriptions array
      */
     static registerAll(uid: string, descriptions: IAchievement[]) {
-        for (let description of descriptions) {
+        for (const description of descriptions) {
             AchievementAPI.register(uid, description);
         }
     }
@@ -54,20 +54,20 @@ class AchievementAPI {
      * @example <i>AchievementAPI.loadFrom(\_\_dir\_\_ + "/achievements.json")</i>
      */
     static loadFrom(path: string) {
-        let content = FileTools.ReadText(path);
+        const content = FileTools.ReadText(path);
         if (content) {
-            let parsed = JSON.parse(content);
+            const parsed = JSON.parse(content);
 
-            let groups = parsed.groups;
+            const groups = parsed.groups;
             if (groups) {
-                for (let key in groups) {
+                for (const key in groups) {
                     AchievementAPI.registerGroup(groups[key]);
                 }
             }
 
-            let achievements = parsed.achievements;
+            const achievements = parsed.achievements;
             if (achievements) {
-                for (let key in achievements) {
+                for (const key in achievements) {
                     const group = achievements[key];
                     AchievementAPI.registerAll(key, group);
                 }
@@ -87,12 +87,12 @@ class AchievementAPI {
      * @returns Is the achievement unlocked?
      */
     static isUnlocked(groupUID: string, uid: string, player: number) {
-        let group = this.groups[groupUID];
+        const group = this.groups[groupUID];
         if (!group) {
             throw new IllegalArgumentException(`Group with uid '${groupUID}' not found`);
         }
 
-        let achievement = group.getChild(uid);
+        const achievement = group.getChild(uid);
         if (!achievement) {
             throw new IllegalArgumentException(`Achievement with uid '${groupUID}' not found`);
         }
@@ -104,7 +104,7 @@ class AchievementAPI {
      * Give all achievements
      */
     static giveAll(player: number) {
-        for (let key in this.groups) {
+        for (const key in this.groups) {
             this.groups[key].giveAll(player);
         }
     }
@@ -134,9 +134,9 @@ class AchievementAPI {
     }
 
     static resetAll() {
-        for (let groupKey in this.groups) {
+        for (const groupKey in this.groups) {
             const group = this.groups[groupKey];
-            for (let key in group.children) {
+            for (const key in group.children) {
                 const child = group.getChild(key);
                 child.reset();
             }

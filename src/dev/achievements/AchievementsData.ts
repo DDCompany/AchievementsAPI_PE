@@ -70,7 +70,7 @@ class AchievementsData {
         }
 
         if (description.showPopup !== false) {
-            let item = description.icon;
+            const item = description.icon;
             let title;
             let color;
 

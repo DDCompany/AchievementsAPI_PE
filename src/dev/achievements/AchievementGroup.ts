@@ -69,7 +69,7 @@ class AchievementGroup {
      * Give all achievements of the group
      */
     giveAll(player: number) {
-        for (let key in this._children) {
+        for (const key in this._children) {
             this._children[key].getFor(player).give();
         }
     }

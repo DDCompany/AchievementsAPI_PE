@@ -12,5 +12,5 @@ interface IAchievementData {
      * Custom data
      * @see <i>AchievementAPI.getData</i>
      */
-    data: object;
+    data: Record<string, unknown>;
 }

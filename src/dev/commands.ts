@@ -1,6 +1,6 @@
 Callback.addCallback("NativeCommand", (str: string) => {
     str = str.replace("/", "");
-    let parts = str.split(" ");
+    const parts = str.split(" ");
 
     if (parts[0] === "ach" || parts[0] === "achievement") {
         switch (parts[1]) {

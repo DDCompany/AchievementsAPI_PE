@@ -118,14 +118,14 @@ AchievementPopup.init();
 
 Callback.addCallback("LocalTick", () => {
     if (!AchievementPopup.delay) {
-        let popup = AchievementPopup.popQueue();
+        const popup = AchievementPopup.popQueue();
 
         if (popup) {
-            let content = AchievementPopup.popupUI.getContent();
-            let container = AchievementPopup.container;
-            let elements = content.elements;
-            let item = popup.item;
-            let slot = container.getSlot("slot");
+            const content = AchievementPopup.popupUI.getContent();
+            const container = AchievementPopup.container;
+            const elements = content.elements;
+            const item = popup.item;
+            const slot = container.getSlot("slot");
 
             elements.title.text = popup.title;
             elements.title.font.color = popup.color || AchievementPopup.DEFAULT_TITLE_COLOR;

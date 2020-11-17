@@ -121,12 +121,12 @@ class AchievementsUI {
     }
 
     static initGroupForWindow(group: AchievementGroup) {
-        let parentElements = this.windowParent.getContent().elements;
+        const parentElements = this.windowParent.getContent().elements;
         parentElements["textPageIndex"].text = (this.currentIndex + 1) + "/" + this.groupNames.length;
         parentElements["textGroupName"].text = Translation.translate(group.name);
 
-        let slotIcon = this.parentContainer.getSlot("slotGroupIcon");
-        let groupIcon = group.icon;
+        const slotIcon = this.parentContainer.getSlot("slotGroupIcon");
+        const groupIcon = group.icon;
 
         if (groupIcon) {
             slotIcon.id = groupIcon.id || 0;
@@ -141,9 +141,9 @@ class AchievementsUI {
 
     static initAchievementsForWindow(group: AchievementGroup, size: number, elements: UI.UIElementSet) {
         let contentExist;
-        for (let index in group.children) {
-            let achievement = group.getChild(index);
-            let parent = achievement.parent;
+        for (const index in group.children) {
+            const achievement = group.getChild(index);
+            const parent = achievement.parent;
 
             if (parent) {
                 if (!achievement.parent.getFor(Player.get()).isCompleted && achievement.hidden) {
@@ -152,8 +152,8 @@ class AchievementsUI {
             }
             contentExist = true;
 
-            let x = this.getAchievementX(achievement.prototype, size);
-            let y = this.getAchievementY(achievement.prototype, size);
+            const x = this.getAchievementX(achievement.prototype, size);
+            const y = this.getAchievementY(achievement.prototype, size);
 
             const achievementData = achievement.getFor(Player.get());
             elements[index] = {
@@ -198,7 +198,7 @@ class AchievementsUI {
     }
 
     static initConditionsForWindow(group: AchievementGroup, size: number, elements: UI.UIElementSet) {
-        let halfOfSize = size / 2;
+        const halfOfSize = size / 2;
         //noinspection JSUnusedGlobalSymbols
         elements["lines"] = {
             type: "custom",
@@ -219,9 +219,9 @@ class AchievementsUI {
                 if (!this.path) {
                     this.path = new android.graphics.Path();
 
-                    for (let index in group.children) {
-                        let achievement = group.getChild(index);
-                        let parent = achievement.parent;
+                    for (const index in group.children) {
+                        const achievement = group.getChild(index);
+                        const parent = achievement.parent;
 
                         if (achievement.prototype.connection === Connection.NONE) {
                             continue;
@@ -232,22 +232,22 @@ class AchievementsUI {
                             continue;
                         }
 
-                        let parentItem = group.getChild(parent.uid);
+                        const parentItem = group.getChild(parent.uid);
                         if (parentItem) {
-                            let x = AchievementsUI.getAchievementX(achievement.prototype, size);
-                            let y = AchievementsUI.getAchievementY(achievement.prototype, size);
-                            let _x = (x + halfOfSize) * scale;
-                            let _y = (y + halfOfSize) * scale;
-                            let parentX = AchievementsUI.getAchievementX(parentItem.prototype, size);
-                            let parentY = AchievementsUI.getAchievementY(parentItem.prototype, size);
-                            let _parentX = (parentX + halfOfSize) * scale;
-                            let _parentY = (parentY + halfOfSize) * scale;
+                            const x = AchievementsUI.getAchievementX(achievement.prototype, size);
+                            const y = AchievementsUI.getAchievementY(achievement.prototype, size);
+                            const _x = (x + halfOfSize) * scale;
+                            const _y = (y + halfOfSize) * scale;
+                            const parentX = AchievementsUI.getAchievementX(parentItem.prototype, size);
+                            const parentY = AchievementsUI.getAchievementY(parentItem.prototype, size);
+                            const _parentX = (parentX + halfOfSize) * scale;
+                            const _parentY = (parentY + halfOfSize) * scale;
 
                             if (parentX === x || parentY === y) {
                                 this.path.moveTo(_x, _y);
                                 this.path.lineTo(_parentX, _parentY);
                             } else {
-                                let x2 = _x + ((parentX < x ? -(halfOfSize + 5) : halfOfSize + 5) * scale);
+                                const x2 = _x + ((parentX < x ? -(halfOfSize + 5) : halfOfSize + 5) * scale);
 
                                 this.path.moveTo(_x, _y);
                                 this.path.lineTo(x2, _y);
@@ -284,10 +284,10 @@ class AchievementsUI {
             type: "custom",
 
             onDraw(canvas: android.graphics.Canvas, scale: number) {
-                let bitmap = android.graphics.Bitmap.createScaledBitmap(UI.TextureSource.get(bgTexture), 80 * scale,
+                const bitmap = android.graphics.Bitmap.createScaledBitmap(UI.TextureSource.get(bgTexture), 80 * scale,
                     80 * scale,
                     false);
-                let paint = new android.graphics.Paint();
+                const paint = new android.graphics.Paint();
                 paint.setShader(new android.graphics.BitmapShader(bitmap, android.graphics.Shader.TileMode.REPEAT,
                     android.graphics.Shader.TileMode.REPEAT));
                 canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
@@ -304,16 +304,16 @@ class AchievementsUI {
             this.currentIndex = 0;
         }
 
-        let group = AchievementAPI.groups[this.groupNames[AchievementsUI.currentIndex]];
+        const group = AchievementAPI.groups[this.groupNames[AchievementsUI.currentIndex]];
         let width = group.width || 600;
         let height = group.height || 250;
-        let elements: UI.UIElementSet = {};
-        let drawing = [{type: "color", color: android.graphics.Color.rgb(0, 0, 0)}];
+        const elements: UI.UIElementSet = {};
+        const drawing = [{type: "color", color: android.graphics.Color.rgb(0, 0, 0)}];
 
         this.initGroupForWindow(group);
 
-        let size = group.nodeSize || 100;
-        let contentExist = this.initAchievementsForWindow(group, size, elements);
+        const size = group.nodeSize || 100;
+        const contentExist = this.initAchievementsForWindow(group, size, elements);
 
         if (contentExist) {
             this.initConditionsForWindow(group, size, elements);
@@ -325,7 +325,7 @@ class AchievementsUI {
             width = 432;
             height = 260;
 
-            let translated = Translation.translate("achievements_api.nothing");
+            const translated = Translation.translate("achievements_api.nothing");
             elements["nothing"] = {
                 type: "text",
                 x: 0,
