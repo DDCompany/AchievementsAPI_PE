@@ -1,3 +1,12 @@
+interface IAchievementsOpenPacket {
+    isUnlocked: boolean,
+    isParentCompleted: boolean,
+    isCompleted: boolean,
+    texture: string,
+    progress: number
+}
+
+//WARNING: NOT RECOMMENDED USE METHODS FROM THIS CLASS BECAUSE OF IT WILL BE CHANGED IN FUTURE VERSIONS
 class AchievementsUI {
     static groupNames: string[] = [];
     static container = new UI.Container();
@@ -92,6 +101,34 @@ class AchievementsUI {
 
     static init() {
         this.windowParent.setBlockingBackground(true);
+        this.setupClientSide();
+        this.setupServerSide();
+    }
+
+    static setupServerSide() {
+        Network.addServerPacket("achievements_api.open_ui", (client, data) => {
+            const children = AchievementAPI.getGroup(data.uid).children;
+            const dat: Record<string, IAchievementsOpenPacket> = {};
+            for (const key in children) {
+                const player = client.getPlayerUid();
+                const child = children[key].getFor(player);
+                dat[key] = {
+                    isCompleted: child.isCompleted,
+                    isUnlocked: child.isUnlocked,
+                    isParentCompleted: child.achievement?.parent?.getFor(player)?.isCompleted ?? true,
+                    progress: child.progress,
+                    texture: child.texture,
+                };
+            }
+
+            client.send("achievements_api.open_ui_client", dat);
+        });
+    }
+
+    static setupClientSide() {
+        Network.addClientPacket("achievements_api.open_ui_client", (data: Record<string, IAchievementsOpenPacket>) => {
+            this._openAchievementsWindow(data);
+        });
     }
 
     static initGroupForWindow(group: AchievementGroup) {
@@ -113,24 +150,26 @@ class AchievementsUI {
         slotIcon.count = 1;
     }
 
-    static initAchievementsForWindow(group: AchievementGroup, size: number, elements: UI.UIElementSet) {
+    static initAchievementsForWindow(group: AchievementGroup, size: number, elements: UI.UIElementSet,
+                                     packet: Record<string, IAchievementsOpenPacket>) {
         let contentExist;
-        for (const index in group.children) {
-            const achievement = group.getChild(index);
-            const parent = achievement.parent;
-
-            if (parent) {
-                if (!achievement.parent.getFor(Player.get()).isCompleted && achievement.hidden) {
-                    continue;
-                }
+        for (const key in packet) {
+            const achievement = group.getChild(key);
+            if (!achievement) {
+                continue;
             }
+
+            const achievementData = packet[key];
+            if (!achievementData.isParentCompleted && achievement.hidden) {
+                continue;
+            }
+
             contentExist = true;
 
             const x = this.getAchievementX(achievement.prototype, size);
             const y = this.getAchievementY(achievement.prototype, size);
 
-            const achievementData = achievement.getFor(Player.get());
-            elements[index] = {
+            elements[key] = {
                 type: "slot",
                 x: x,
                 y: y,
@@ -140,13 +179,13 @@ class AchievementsUI {
                 isTransparentBackground: true,
                 clicker: {
                     onClick() {
-                        AchievementsUI.showInformationToast(achievementData);
+                        AchievementsUI.showInformationToast(achievement, achievementData);
                     },
                 },
             };
 
             const item = achievement.icon || {id: 0, data: 0};
-            const slot = this.container.getSlot(index);
+            const slot = this.container.getSlot(key);
             slot.id = item?.id ?? 0;
             slot.data = item?.data ?? 0;
             slot.count = 1;
@@ -155,8 +194,7 @@ class AchievementsUI {
         return contentExist;
     }
 
-    static showInformationToast(data: AchievementsData) {
-        const achievement = data.achievement;
+    static showInformationToast(achievement: Achievement, data: IAchievementsOpenPacket) {
         let info = Translation.translate(achievement.name);
 
         if (achievement.prototype.progressMax) {
@@ -171,7 +209,8 @@ class AchievementsUI {
         alert(info);
     }
 
-    static initConditionsForWindow(group: AchievementGroup, size: number, elements: UI.UIElementSet) {
+    static initConditionsForWindow(group: AchievementGroup, packet: Record<string, IAchievementsOpenPacket>,
+                                   size: number, elements: UI.UIElementSet) {
         const halfOfSize = size / 2;
         //noinspection JSUnusedGlobalSymbols
         elements["lines"] = {
@@ -193,8 +232,12 @@ class AchievementsUI {
                 if (!this.path) {
                     this.path = new android.graphics.Path();
 
-                    for (const index in group.children) {
-                        const achievement = group.getChild(index);
+                    for (const key in packet) {
+                        const achievement = group.getChild(key);
+                        if (!achievement) {
+                            continue;
+                        }
+
                         const parent = achievement.parent;
 
                         if (achievement.prototype.connection === Connection.NONE) {
@@ -278,6 +321,10 @@ class AchievementsUI {
             this.currentIndex = 0;
         }
 
+        Network.sendToServer("achievements_api.open_ui", {uid: this.groupNames[this.currentIndex]});
+    }
+
+    static _openAchievementsWindow(packet: Record<string, IAchievementsOpenPacket>) {
         const group = AchievementAPI.groups[this.groupNames[AchievementsUI.currentIndex]];
         let width = group.width || 600;
         let height = group.height || 250;
@@ -287,10 +334,10 @@ class AchievementsUI {
         this.initGroupForWindow(group);
 
         const size = group.nodeSize || 100;
-        const contentExist = this.initAchievementsForWindow(group, size, elements);
+        const contentExist = this.initAchievementsForWindow(group, size, elements, packet);
 
         if (contentExist) {
-            this.initConditionsForWindow(group, size, elements);
+            this.initConditionsForWindow(group, packet, size, elements);
 
             if (group.backgroundTexture) {
                 this.initBackgroundForWindow(drawing, group.backgroundTexture);
