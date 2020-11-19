@@ -79,6 +79,12 @@ class Achievement {
         this._dataFor = {};
     }
 
+    revoke(player: number) {
+        if (this._dataFor[player]) {
+            delete this._dataFor[player];
+        }
+    }
+
     deserialize(data: ISavedAchievement) {
         this.reset();
         for (const key in data) {

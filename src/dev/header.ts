@@ -25,3 +25,15 @@ const EntityType = Native.EntityType;
 const simulateBackPressed = ModAPI.requireGlobal("MCSystem.simulateBackPressed");
 const IllegalArgumentException = java.lang.IllegalArgumentException;
 const LOG_TAG = "ACHIEVEMENTS-API";
+
+function getPlayerByTag(tag: string): Nullable<number> {
+    const clients = Network.getServer().getConnectedClients();
+    for (let i = 0; i < clients.size(); i++) {
+        const client = clients.get(i);
+        if (Entity.getNameTag(client.getPlayerUid()) === tag) {
+            return client.getPlayerUid();
+        }
+    }
+
+    return null;
+}
