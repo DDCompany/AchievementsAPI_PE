@@ -4,7 +4,7 @@
       "name": "AchievementsAPI",
       "description": "",
       "author": "DDCompany",
-      "version": "release-2.1",
+      "version": "release-4.0",
       "icon": "src/mod_icon.png"
     },
     "api": "CoreEngine"
@@ -21,7 +21,7 @@
       "nativejs"
     ],
     "excludeFromRelease": [],
-    "pushTo": "storage/emulated/0/games/horizon/packs/Inner_Core/innercore/mods/WailaPE",
+    "pushTo": "storage/emulated/0/games/horizon/packs/Inner_Core/innercore/mods/AchievementsAPI",
     "ndkPath": null
   },
   "resources": [
