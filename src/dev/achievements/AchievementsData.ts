@@ -101,7 +101,7 @@ class AchievementsData {
         }
 
         if (description.announce ?? true) {
-            Game.message(`${Entity.getNameTag(this.player)} ${Translation.translate(
+            Network.sendServerMessage(`${Entity.getNameTag(this.player)} ${Translation.translate(
                 "achievements_api.made")} ${Native.Color.GREEN}[${this.achievement.name}]`);
         }
 
