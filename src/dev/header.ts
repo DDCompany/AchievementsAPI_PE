@@ -22,6 +22,7 @@
 
 const DimensionType = Native.Dimension;
 const EntityType = Native.EntityType;
+const ChatColor = Native.Color;
 const simulateBackPressed = ModAPI.requireGlobal("MCSystem.simulateBackPressed");
 const IllegalArgumentException = java.lang.IllegalArgumentException;
 const LOG_TAG = "ACHIEVEMENTS-API";
