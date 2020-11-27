@@ -88,6 +88,7 @@ class AchievementPopup {
     static init() {
         this.setupClientSide();
         this.popupUI.setAsGameOverlay(true);
+        this.popupUI.setTouchable(false);
     }
 
     /**
