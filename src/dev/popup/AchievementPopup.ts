@@ -110,6 +110,13 @@ class AchievementPopup {
         return this.popupQueue.pop() || null;
     }
 
+    /**
+     * Remove all popup from queue
+     */
+    static clearQueue() {
+        this.popupQueue = [];
+    }
+
     static setupClientSide() {
         Network.addClientPacket("achievements_api.show_popup", (popup: IAchievementPopup) => this.show(popup));
     }
@@ -147,4 +154,10 @@ Callback.addCallback("LocalTick", () => {
         AchievementPopup.delay = 0;
         AchievementPopup.container.close();
     }
+});
+
+Callback.addCallback("LevelLeft", () => {
+    AchievementPopup.delay = 0;
+    AchievementPopup.clearQueue();
+    AchievementPopup.container.close();
 });
