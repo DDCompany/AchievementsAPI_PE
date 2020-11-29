@@ -65,7 +65,7 @@ class Achievement {
         return Translation.translate(this._prototype.description);
     }
 
-    getFor(player: number) {
+    for(player: number) {
         const data = this._dataFor[player];
         if (!data) {
             return this._dataFor[player]

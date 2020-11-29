@@ -54,7 +54,7 @@ class AchievementGroup {
         if (!achievement) {
             throw new IllegalArgumentException("Invalid achievement uid");
         }
-        achievement.getFor(player).give();
+        achievement.for(player).give();
     }
 
     addChild(child: Achievement) {
@@ -70,7 +70,7 @@ class AchievementGroup {
      */
     giveAll(player: number) {
         for (const key in this._children) {
-            this._children[key].getFor(player).give();
+            this._children[key].for(player).give();
         }
     }
 

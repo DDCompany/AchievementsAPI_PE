@@ -21,7 +21,7 @@ class AchievementsData {
     }
 
     get isUnlocked() {
-        return this._achievement.parent?.getFor(this.player)?.isCompleted ?? true;
+        return this._achievement.parent?.for(this.player)?.isCompleted ?? true;
     }
 
     get texture() {
@@ -64,7 +64,7 @@ class AchievementsData {
         }
 
         const parent = this._achievement.parent;
-        if (parent && !parent.getFor(this.player).isCompleted) {
+        if (parent && !parent.for(this.player).isCompleted) {
             return;
         }
 

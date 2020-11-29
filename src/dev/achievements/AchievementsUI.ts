@@ -111,11 +111,11 @@ class AchievementsUI {
             const dat: Record<string, IAchievementsOpenPacket> = {};
             for (const key in children) {
                 const player = client.getPlayerUid();
-                const child = children[key].getFor(player);
+                const child = children[key].for(player);
                 dat[key] = {
                     isCompleted: child.isCompleted,
                     isUnlocked: child.isUnlocked,
-                    isParentCompleted: child.achievement?.parent?.getFor(player)?.isCompleted ?? true,
+                    isParentCompleted: child.achievement?.parent?.for(player)?.isCompleted ?? true,
                     progress: child.progress,
                     texture: child.texture,
                 };
@@ -245,7 +245,7 @@ class AchievementsUI {
                         }
 
                         if (!parent || parent.group.uid !== group.uid ||
-                            (!parent.getFor(Player.get()).isCompleted && achievement.hidden)) {
+                            (!parent.for(Player.get()).isCompleted && achievement.hidden)) {
                             continue;
                         }
 

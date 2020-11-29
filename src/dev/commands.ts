@@ -63,7 +63,7 @@ Network.addServerPacket("achievements_api.handle_command", (client, cmd: string)
                 const group = AchievementAPI.groups[groupKey];
                 for (const key in group.children) {
                     const child = group.getChild(key);
-                    child.getFor(player).revoke();
+                    child.for(player).revoke();
                 }
             }
             client.sendMessage("Achievements revoked");
