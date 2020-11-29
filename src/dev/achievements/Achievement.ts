@@ -1,7 +1,7 @@
 interface IFullData {
     completed: boolean
     progress: number
-    custom: Record<string, Record<string, unknown>>
+    custom: unknown
 }
 
 class Achievement {

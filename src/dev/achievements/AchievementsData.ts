@@ -50,8 +50,8 @@ class AchievementsData {
         return this._fullData;
     }
 
-    get data() {
-        return this._fullData.custom;
+    data<T>() {
+        return this._fullData.custom as T;
     }
 
     revoke() {
