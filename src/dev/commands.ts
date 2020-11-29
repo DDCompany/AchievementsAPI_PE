@@ -26,7 +26,7 @@ Network.addServerPacket("achievements_api.handle_command", (client, cmd: string)
             }
 
             AchievementAPI.giveAll(player);
-            client.sendMessage(`Achievements given to ${parts[2]}`);
+            client.sendMessage("Achievements given");
             return;
         }
         case "give": {
@@ -49,7 +49,7 @@ Network.addServerPacket("achievements_api.handle_command", (client, cmd: string)
             }
 
             group.giveAll(player);
-            client.sendMessage(`Achievements given to ${parts[3]}`);
+            client.sendMessage("Achievements given");
             return;
         }
         case "revokeAll": {
@@ -63,11 +63,10 @@ Network.addServerPacket("achievements_api.handle_command", (client, cmd: string)
                 const group = AchievementAPI.groups[groupKey];
                 for (const key in group.children) {
                     const child = group.getChild(key);
-                    child.revoke(player);
+                    child.getFor(player).revoke();
                 }
             }
-            AchievementAPI.resetAll();
-            client.sendMessage(`Achievements revoked from ${parts[2]}`);
+            client.sendMessage("Achievements revoked");
         }
     }
 });

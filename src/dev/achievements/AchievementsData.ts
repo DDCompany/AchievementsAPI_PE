@@ -54,6 +54,10 @@ class AchievementsData {
         return this._fullData.custom;
     }
 
+    revoke() {
+        this._fullData.completed = false;
+    }
+
     give() {
         if (this.isCompleted) {
             return;
