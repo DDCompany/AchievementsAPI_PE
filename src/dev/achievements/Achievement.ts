@@ -66,6 +66,7 @@ class Achievement {
     }
 
     for(player: number) {
+        assertServerSide();
         const data = this._dataFor[player];
         if (!data) {
             return this._dataFor[player]
