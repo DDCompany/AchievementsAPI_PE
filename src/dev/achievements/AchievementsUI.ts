@@ -233,6 +233,7 @@ class AchievementsUI {
                     this.path = new android.graphics.Path();
 
                     for (const key in packet) {
+                        const achievementData = packet[key];
                         const achievement = group.getChild(key);
                         if (!achievement) {
                             continue;
@@ -245,7 +246,7 @@ class AchievementsUI {
                         }
 
                         if (!parent || parent.group.uid !== group.uid ||
-                            (!parent.for(Player.get()).isCompleted && achievement.hidden)) {
+                            (!achievementData.isParentCompleted && achievement.hidden)) {
                             continue;
                         }
 
