@@ -1,18 +1,22 @@
+interface IHandleCmdPacket {
+    cmd: string
+}
+
 Callback.addCallback("NativeCommand", (cmd: string) => {
     if (Network.inRemoteWorld()) {
         Game.message(`${ChatColor.RED}[AchievementAPI] Commands allowed only on host player`);
     } else {
-        Network.sendToServer("achievements_api.handle_command", cmd);
+        Network.sendToServer("achievements_api.handle_command", {cmd});
     }
     Game.prevent();
 });
 
-Network.addServerPacket("achievements_api.handle_command", (client, cmd: string) => {
+Network.addServerPacket<IHandleCmdPacket>("achievements_api.handle_command", (client, data) => {
     if (client.getPlayerUid() != Player.get()) { //require != because !== return false for same values
         return;
     }
 
-    const parts = cmd.substr(1).split(" ");
+    const parts = data.cmd.substr(1).split(" ");
     if (parts[0] !== "ach" && parts[0] !== "achievement") {
         return;
     }

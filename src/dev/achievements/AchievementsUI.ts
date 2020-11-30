@@ -1,9 +1,17 @@
-interface IAchievementsOpenPacket {
+interface IAchievementsData {
     isUnlocked: boolean,
     isParentCompleted: boolean,
     isCompleted: boolean,
     texture: string,
     progress: number
+}
+
+interface IAchievementsDataPacket {
+    [key: string]: IAchievementsData
+}
+
+interface IOpenUIPacket {
+    uid: string
 }
 
 //WARNING: NOT RECOMMENDED USE METHODS FROM THIS CLASS BECAUSE OF IT WILL BE CHANGED IN FUTURE VERSIONS
@@ -106,9 +114,9 @@ class AchievementsUI {
     }
 
     static setupServerSide() {
-        Network.addServerPacket("achievements_api.open_ui", (client, data) => {
+        Network.addServerPacket<IOpenUIPacket>("achievements_api.open_ui", (client, data) => {
             const children = AchievementAPI.getGroup(data.uid).children;
-            const dat: Record<string, IAchievementsOpenPacket> = {};
+            const dat: IAchievementsDataPacket = {};
             for (const key in children) {
                 const player = client.getPlayerUid();
                 const child = children[key].for(player);
@@ -126,7 +134,7 @@ class AchievementsUI {
     }
 
     static setupClientSide() {
-        Network.addClientPacket("achievements_api.open_ui_client", (data: Record<string, IAchievementsOpenPacket>) => {
+        Network.addClientPacket<IAchievementsDataPacket>("achievements_api.open_ui_client", data => {
             this._openAchievementsWindow(data);
         });
     }
@@ -150,8 +158,8 @@ class AchievementsUI {
         slotIcon.count = 1;
     }
 
-    static initAchievementsForWindow(group: AchievementGroup, size: number, elements: UI.UIElementSet,
-                                     packet: Record<string, IAchievementsOpenPacket>) {
+    static initAchievementsForWindow(group: AchievementGroup, size: number, elements: UI.ElementSet,
+                                     packet: IAchievementsDataPacket) {
         let contentExist;
         for (const key in packet) {
             const achievement = group.getChild(key);
@@ -194,7 +202,7 @@ class AchievementsUI {
         return contentExist;
     }
 
-    static showInformationToast(achievement: Achievement, data: IAchievementsOpenPacket) {
+    static showInformationToast(achievement: Achievement, data: IAchievementsData) {
         let info = Translation.translate(achievement.name);
 
         if (achievement.prototype.progressMax) {
@@ -209,14 +217,16 @@ class AchievementsUI {
         alert(info);
     }
 
-    static initConditionsForWindow(group: AchievementGroup, packet: Record<string, IAchievementsOpenPacket>,
-                                   size: number, elements: UI.UIElementSet) {
+    static initConditionsForWindow(group: AchievementGroup, packet: IAchievementsDataPacket,
+                                   size: number, elements: UI.ElementSet) {
         const halfOfSize = size / 2;
         //noinspection JSUnusedGlobalSymbols
         elements["lines"] = {
             type: "custom",
-            z: -1,
             custom: {},
+            x: 0,
+            y: 0,
+            z: -1,
 
             onSetup() {
                 this.paint = new android.graphics.Paint();
@@ -228,76 +238,79 @@ class AchievementsUI {
                 this.paint2.setStyle(android.graphics.Paint.Style.STROKE);
             },
 
-            onDraw(self: unknown, canvas: android.graphics.Canvas, scale: number) {
-                if (!this.path) {
-                    this.path = new android.graphics.Path();
+            onDraw(self: UI.Element, canvas: android.graphics.Canvas, scale: number) {
+                try {
+                    if (!this.path) {
+                        this.path = new android.graphics.Path();
 
-                    for (const key in packet) {
-                        const achievementData = packet[key];
-                        const achievement = group.getChild(key);
-                        if (!achievement) {
-                            continue;
-                        }
+                        for (const key in packet) {
+                            const achievementData = packet[key];
+                            const achievement = group.getChild(key);
+                            if (!achievement) {
+                                continue;
+                            }
 
-                        const parent = achievement.parent;
+                            const parent = achievement.parent;
 
-                        if (achievement.prototype.connection === Connection.NONE) {
-                            continue;
-                        }
+                            if (achievement.prototype.connection === Connection.NONE) {
+                                continue;
+                            }
 
-                        if (!parent || parent.group.uid !== group.uid ||
-                            (!achievementData.isParentCompleted && achievement.hidden)) {
-                            continue;
-                        }
+                            if (!parent || parent.group.uid !== group.uid ||
+                                (!achievementData.isParentCompleted && achievement.hidden)) {
+                                continue;
+                            }
 
-                        const parentItem = group.getChild(parent.uid);
-                        if (parentItem) {
-                            const x = AchievementsUI.getAchievementX(achievement.prototype, size);
-                            const y = AchievementsUI.getAchievementY(achievement.prototype, size);
-                            const _x = (x + halfOfSize) * scale;
-                            const _y = (y + halfOfSize) * scale;
-                            const parentX = AchievementsUI.getAchievementX(parentItem.prototype, size);
-                            const parentY = AchievementsUI.getAchievementY(parentItem.prototype, size);
-                            const _parentX = (parentX + halfOfSize) * scale;
-                            const _parentY = (parentY + halfOfSize) * scale;
+                            const parentItem = group.getChild(parent.uid);
+                            if (parentItem) {
+                                const x = AchievementsUI.getAchievementX(achievement.prototype, size);
+                                const y = AchievementsUI.getAchievementY(achievement.prototype, size);
+                                const _x = (x + halfOfSize) * scale;
+                                const _y = (y + halfOfSize) * scale;
+                                const parentX = AchievementsUI.getAchievementX(parentItem.prototype, size);
+                                const parentY = AchievementsUI.getAchievementY(parentItem.prototype, size);
+                                const _parentX = (parentX + halfOfSize) * scale;
+                                const _parentY = (parentY + halfOfSize) * scale;
 
-                            if (parentX === x || parentY === y) {
-                                this.path.moveTo(_x, _y);
-                                this.path.lineTo(_parentX, _parentY);
-                            } else {
-                                const x2 = _x + ((parentX < x ? -(halfOfSize + 5) : halfOfSize + 5) * scale);
+                                if (parentX === x || parentY === y) {
+                                    this.path.moveTo(_x, _y);
+                                    this.path.lineTo(_parentX, _parentY);
+                                } else {
+                                    const x2 = _x + ((parentX < x ? -(halfOfSize + 5) : halfOfSize + 5) * scale);
 
-                                this.path.moveTo(_x, _y);
-                                this.path.lineTo(x2, _y);
+                                    this.path.moveTo(_x, _y);
+                                    this.path.lineTo(x2, _y);
 
-                                switch (achievement.prototype.connection) {
-                                    case Connection.HORIZONTAL:
-                                        this.path.lineTo(x2, _parentY);
-                                        this.path.lineTo(_parentX, _parentY);
-                                        break;
-                                    case Connection.VERTICAL:
-                                        this.path.lineTo(_parentX, _y);
-                                        this.path.lineTo(_parentX, _parentY);
-                                        break;
-                                    default:
+                                    switch (achievement.prototype.connection) {
+                                        case Connection.HORIZONTAL:
+                                            this.path.lineTo(x2, _parentY);
+                                            this.path.lineTo(_parentX, _parentY);
+                                            break;
+                                        case Connection.VERTICAL:
+                                            this.path.lineTo(_parentX, _y);
+                                            this.path.lineTo(_parentX, _parentY);
+                                            break;
+                                        default:
+                                    }
+
                                 }
-
                             }
                         }
                     }
+
+                    this.paint.setStrokeWidth(6 * scale);
+                    this.paint2.setStrokeWidth(14 * scale);
+
+                    canvas.drawPath(this.path, this.paint2);
+                    canvas.drawPath(this.path, this.paint);
+                } catch (e) {
+                    alert(e);
                 }
-
-                this.paint.setStrokeWidth(6 * scale);
-                this.paint2.setStrokeWidth(14 * scale);
-
-                canvas.drawPath(this.path, this.paint2);
-                canvas.drawPath(this.path, this.paint);
             },
         };
     }
 
-    static initBackgroundForWindow(drawing: UI.DrawingElement[], bgTexture: string) {
-        //noinspection JSUnusedGlobalSymbols
+    static initBackgroundForWindow(drawing: UI.DrawingSet, bgTexture: string) {
         drawing.push({
             type: "custom",
 
@@ -325,12 +338,12 @@ class AchievementsUI {
         Network.sendToServer("achievements_api.open_ui", {uid: this.groupNames[this.currentIndex]});
     }
 
-    static _openAchievementsWindow(packet: Record<string, IAchievementsOpenPacket>) {
+    static _openAchievementsWindow(packet: IAchievementsDataPacket) {
         const group = AchievementAPI.groups[this.groupNames[AchievementsUI.currentIndex]];
         let width = group.width || 600;
         let height = group.height || 250;
-        const elements: UI.UIElementSet = {};
-        const drawing = [{type: "color", color: android.graphics.Color.rgb(0, 0, 0)}];
+        const elements: UI.ElementSet = {};
+        const drawing: UI.DrawingSet = [{type: "color", color: android.graphics.Color.rgb(0, 0, 0)}];
 
         this.initGroupForWindow(group);
 

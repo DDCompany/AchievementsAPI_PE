@@ -99,7 +99,7 @@ class AchievementPopup {
         this.popupQueue.push(popup);
     }
 
-    static showFor(client: ConnectedClient, popup: IAchievementPopup) {
+    static showFor(client: NetworkClient, popup: IAchievementPopup) {
         client.send("achievements_api.show_popup", popup);
     }
 
