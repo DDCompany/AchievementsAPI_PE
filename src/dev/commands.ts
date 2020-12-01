@@ -1,54 +1,66 @@
 interface IHandleCmdPacket {
-    cmd: string
+    type: "giveAll" | "give" | "revokeAll",
+    player: string,
+    group?: string
 }
 
 Callback.addCallback("NativeCommand", (cmd: string) => {
-    if (Network.inRemoteWorld()) {
-        Game.message(`${ChatColor.RED}[AchievementAPI] Commands allowed only on host player`);
-    } else {
-        Network.sendToServer("achievements_api.handle_command", {cmd});
-    }
-    Game.prevent();
-});
-
-Network.addServerPacket<IHandleCmdPacket>("achievements_api.handle_command", (client, data) => {
-    if (client.getPlayerUid() != Player.get()) { //require != because !== return false for same values
-        return;
-    }
-
-    const parts = data.cmd.substr(1).split(" ");
+    const parts = cmd.substr(1).split(" ");
     if (parts[0] !== "ach" && parts[0] !== "achievement") {
         return;
     }
 
     switch (parts[1]) {
-        case "giveAll": {
-            const player = parts[2] ? getPlayerByTag(parts[2]) : Player.get();
-            if (!player) {
-                client.sendMessage(`${ChatColor.RED}Player with nickname "${parts[2]}" not found`);
-                break;
-            }
+        case "giveAll":
+            Network.sendToServer("achievements_api.handle_command",
+                {type: "giveAll", player: parts[2] ? parts[2] : getPlayerName()});
+            break;
+        case "give":
+            Network.sendToServer("achievements_api.handle_command",
+                {type: "give", player: parts[3] ? parts[3] : getPlayerName(), group: parts[2]});
+            break;
+        case "revokeAll":
+            Network.sendToServer("achievements_api.handle_command",
+                {type: "revokeAll", player: parts[2] ? parts[2] : getPlayerName()});
+            break;
+        default:
+            return;
+    }
 
+    Game.prevent();
+});
+
+Network.addServerPacket<IHandleCmdPacket>("achievements_api.handle_command", (client, data) => {
+    if (client.getPlayerUid() != Player.get()) { //require != because !== return false for same values
+        client.sendMessage(`${ChatColor.RED}Commands allowed only on host player`);
+        return;
+    }
+
+    if (!data.player) {
+        client.sendMessage(`${ChatColor.RED}Player not found`);
+    }
+
+    const player = getPlayerByTag(data.player);
+    if (!player) {
+        client.sendMessage(`${ChatColor.RED}Player with nickname "${data.player}" not found`);
+        return;
+    }
+
+    switch (data.type) {
+        case "giveAll": {
             AchievementAPI.giveAll(player);
             client.sendMessage("Achievements given");
             return;
         }
         case "give": {
-            const groupUID = parts[2];
-            if (!groupUID) {
+            if (!data.group) {
                 client.sendMessage(`${ChatColor.RED}Invalid group uid`);
                 break;
             }
 
-            const group = AchievementAPI.getGroup(groupUID);
+            const group = AchievementAPI.getGroup(data.group);
             if (!group) {
-                client.sendMessage(`${ChatColor.RED}Group with name "${groupUID}" not found`);
-                break;
-            }
-
-            const player = parts[3] ? getPlayerByTag(parts[3]) : Player.get();
-            if (!player) {
-                client.sendMessage(`${ChatColor.RED}Player with nickname "${parts[2]}" not found`);
+                client.sendMessage(`${ChatColor.RED}Group with name "${data.group}" not found`);
                 break;
             }
 
@@ -57,12 +69,6 @@ Network.addServerPacket<IHandleCmdPacket>("achievements_api.handle_command", (cl
             return;
         }
         case "revokeAll": {
-            const player = parts[2] ? getPlayerByTag(parts[2]) : Player.get();
-            if (!player) {
-                client.sendMessage(`${ChatColor.RED}Player with nickname "${parts[2]}" not found`);
-                break;
-            }
-
             for (const groupKey in AchievementAPI.groups) {
                 const group = AchievementAPI.groups[groupKey];
                 for (const key in group.children) {
@@ -71,6 +77,7 @@ Network.addServerPacket<IHandleCmdPacket>("achievements_api.handle_command", (cl
                 }
             }
             client.sendMessage("Achievements revoked");
+            return;
         }
     }
 });

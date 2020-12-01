@@ -39,6 +39,10 @@ function getPlayerByTag(tag: string): Nullable<number> {
     return null;
 }
 
+function getPlayerName() {
+    return Entity.getNameTag(Player.get());
+}
+
 const NetworkThreadMarker = java.lang.Class.forName("com.zhekasmirnov.apparatus.multiplayer.NetworkThreadMarker", true,
     UI.getContext().getClassLoader());
 const nativeAssertServerThread = NetworkThreadMarker.getMethod("assertServerThread", null);
