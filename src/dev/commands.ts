@@ -69,13 +69,7 @@ Network.addServerPacket<IHandleCmdPacket>("achievements_api.handle_command", (cl
             return;
         }
         case "revokeAll": {
-            for (const groupKey in AchievementAPI.groups) {
-                const group = AchievementAPI.groups[groupKey];
-                for (const key in group.children) {
-                    const child = group.getChild(key);
-                    child.for(player).revoke();
-                }
-            }
+            AchievementAPI.revokeAll(player);
             client.sendMessage("Achievements revoked");
             return;
         }

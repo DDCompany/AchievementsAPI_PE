@@ -109,6 +109,16 @@ class AchievementAPI {
         }
     }
 
+    static revokeAll(player: number) {
+        for (const groupKey in AchievementAPI.groups) {
+            const group = AchievementAPI.groups[groupKey];
+            for (const key in group.children) {
+                const child = group.getChild(key);
+                child.for(player).revoke();
+            }
+        }
+    }
+
     /**
      * @param groupUID - group identifier in which achievement contains
      * @param uid - achievement identifier
