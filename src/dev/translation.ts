@@ -23,6 +23,42 @@ Translation.addTranslation("achievements_api.made", {
     ru: "выполнил достижение",
 });
 
+//Commands
+Translation.addTranslation("achievements_api.commands_only_on_host", {
+    en: "Commands allowed only on host player",
+    ru: "Команды доступны только на строне хоста",
+});
+
+Translation.addTranslation("achievements_api.player_not_found", {
+    en: "Player not found",
+    ru: "Игрок не найден",
+});
+
+Translation.addTranslation("achievements_api.player_with_nick_not_found", {
+    en: "Player with nickname %1 not found",
+    ru: "Игрок '%1' не найден",
+});
+
+Translation.addTranslation("achievements_api.given", {
+    en: "Achievements given",
+    ru: "Достижения выданы",
+});
+
+Translation.addTranslation("achievements_api.invalid_group", {
+    en: "Invalid group uid",
+    ru: "Неверное название группы",
+});
+
+Translation.addTranslation("achievements_api.group_not_found", {
+    en: "Group with name %1 not found",
+    ru: "Группа '%1' не найдена",
+});
+
+Translation.addTranslation("achievements_api.revoked", {
+    en: "Achievements revoked",
+    ru: "Достижения изъяты",
+});
+
 //Story
 Translation.addTranslation("achievements.story", {en: "Minecraft", ru: "Minecraft"});
 
