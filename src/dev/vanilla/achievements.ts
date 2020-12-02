@@ -87,7 +87,6 @@ Callback.addCallback("EntityDeath", function (entity, attacker) {
 
 Callback.addCallback("EntityAdded", function (entity) {
     if (Entity.getType(entity) === EntityType.WHITHER) {
-        Debug.message("p");
         const source = BlockSource.getDefaultForActor(entity);
         const pos = Entity.getPosition(entity);
         const range = 40;
