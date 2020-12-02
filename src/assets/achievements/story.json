@@ -133,7 +133,7 @@
       {
         "uid": "kill_dragon",
         "name": "achievements.story.kill_dragon.title",
-        "description": "achievements.end.story.description",
+        "description": "achievements.story.kill_dragon.description",
         "parent": "enter_the_end",
         "column": 8,
         "row": 2,
