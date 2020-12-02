@@ -82,6 +82,10 @@ class AchievementPopup {
      */
     static delay = 0;
 
+    private static validScreen = false;
+
+    private static openedScreens: Array<UI.IWindow> = [];
+
     /**
      * Initialize the window
      */
@@ -119,6 +123,28 @@ class AchievementPopup {
 
     static setupClientSide() {
         Network.addClientPacket("achievements_api.show_popup", (popup: IAchievementPopup) => this.show(popup));
+
+        Callback.addCallback("NativeGuiChanged", screen => {
+            this.validScreen = screen === "hud_screen" || screen === "in_game_play_screen";
+        });
+
+        Callback.addCallback("CustomWindowOpened", (window: UI.Window | UI.WindowGroup) => {
+            if (!window["isNotFocusable"] //WindowGroup
+                || !(window.equals(this.popupUI) && window["isNotFocusable"]())) {
+                this.openedScreens.push(window);
+            }
+        });
+
+        Callback.addCallback("CustomWindowClosed", (window) => {
+            const index = this.openedScreens.indexOf(window);
+            if (index !== -1) {
+                this.openedScreens.splice(index, 1);
+            }
+        });
+    }
+
+    static canBeShown() {
+        return this.validScreen && !this.openedScreens.length;
     }
 }
 
@@ -144,10 +170,19 @@ Callback.addCallback("LocalTick", () => {
             slot.count = item?.count ?? 1;
 
             AchievementPopup.delay = popup.delay || AchievementPopup.DEFAULT_DELAY;
-            container.openAs(AchievementPopup.popupUI);
         }
 
         return;
+    }
+
+    if (AchievementPopup.canBeShown()) {
+        if (!AchievementPopup.popupUI.isOpened()) {
+            AchievementPopup.container.openAs(AchievementPopup.popupUI);
+        }
+    } else {
+        if (AchievementPopup.popupUI.isOpened()) {
+            AchievementPopup.container.close();
+        }
     }
 
     if (--AchievementPopup.delay <= 0) {
@@ -159,5 +194,4 @@ Callback.addCallback("LocalTick", () => {
 Callback.addCallback("LevelLeft", () => {
     AchievementPopup.delay = 0;
     AchievementPopup.clearQueue();
-    AchievementPopup.container.close();
 });
