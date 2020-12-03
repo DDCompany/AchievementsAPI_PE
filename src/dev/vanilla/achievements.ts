@@ -1,7 +1,7 @@
 AchievementAPI.loadFrom(__dir__ + "achievements/story.json");
 AchievementAPI.loadFrom(__dir__ + "achievements/nether.json");
 
-Callback.addCallback("ItemUse", function (coords, item, block, isExternal, player) {
+Callback.addCallback("ItemUse", (coords, item, block, isExternal, player) => {
     switch (item.id) {
         case VanillaBlockID.crafting_table:
             AchievementAPI.give(player, "story", "root");
@@ -20,7 +20,7 @@ Callback.addCallback("ItemUse", function (coords, item, block, isExternal, playe
     }
 });
 
-Callback.addCallback("DestroyBlock", function (coords, block, player) {
+Callback.addCallback("DestroyBlock", (coords, block, player) => {
     switch (block.id) {
         case VanillaBlockID.stone:
             AchievementAPI.give(player, "story", "mine_stone");
@@ -37,7 +37,7 @@ Callback.addCallback("DestroyBlock", function (coords, block, player) {
     }
 });
 
-Callback.addCallback("PlayerChangedDimension", function (player, dimension) {
+Callback.addCallback("PlayerChangedDimension", (player, dimension) => {
     if (dimension === DimensionType.NETHER) {
         AchievementAPI.give(player, "story", "enter_the_nether");
         AchievementAPI.give(player, "nether", "root");
@@ -46,7 +46,7 @@ Callback.addCallback("PlayerChangedDimension", function (player, dimension) {
     }
 });
 
-Callback.addCallback("EntityHurt", function (attacker, victim) {
+Callback.addCallback("EntityHurt", (attacker, victim) => {
     const typeOfAttacker = Entity.getType(attacker);
     if (typeOfAttacker !== 1) {
         return;
@@ -58,7 +58,7 @@ Callback.addCallback("EntityHurt", function (attacker, victim) {
     }
 });
 
-Callback.addCallback("EntityDeath", function (entity, attacker) {
+Callback.addCallback("EntityDeath", (entity, attacker) => {
     const typeOfAttacker = Entity.getType(attacker);
     if (typeOfAttacker !== 1) {
         return;
@@ -85,7 +85,7 @@ Callback.addCallback("EntityDeath", function (entity, attacker) {
     }
 });
 
-Callback.addCallback("EntityAdded", function (entity) {
+Callback.addCallback("EntityAdded", entity => {
     if (Entity.getType(entity) === EntityType.WHITHER) {
         const source = BlockSource.getDefaultForActor(entity);
         const pos = Entity.getPosition(entity);
@@ -97,7 +97,7 @@ Callback.addCallback("EntityAdded", function (entity) {
     }
 });
 
-Callback.addCallback("VanillaWorkbenchCraft", function (result, container, player) {
+Callback.addCallback("VanillaWorkbenchCraft", (result, container, player) => {
     switch (result.id) {
         case VanillaItemID.stone_pickaxe:
             AchievementAPI.give(player, "story", "upgrade_tools");
