@@ -7,7 +7,6 @@ popup/IAchievementPopup.ts
 popup/AchievementPopup.ts
 achievements/AchievementsUI.ts
 achievements/AchievementType.ts
-achievements/IAchievementData.ts
 achievements/IAchievement.ts
 achievements/IAchievementGroup.ts
 achievements/AchievementGroup.ts
