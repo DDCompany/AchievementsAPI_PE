@@ -4,7 +4,7 @@
       "name": "AchievementsAPI",
       "description": "",
       "author": "DDCompany",
-      "version": "release-4.2",
+      "version": "release-4.2.1",
       "icon": "src/mod_icon.png"
     },
     "api": "CoreEngine"
