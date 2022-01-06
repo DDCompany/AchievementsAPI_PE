@@ -407,7 +407,7 @@ class AchievementsUI {
 AchievementsUI.init();
 
 Callback.addCallback("NativeGuiChanged", (screenName: string) => {
-    if (screenName == "xbl_optional_signin_screen - gui.achievements") {
+    if (screenName == "xbl_optional_signin_screen - gui.achievements" || screenName === "/achievements") {
         simulateBackPressed(); //close popup
         AchievementsUI.currentIndex = 0;
         AchievementsUI.parentContainer.openAs(AchievementsUI.windowParent);
