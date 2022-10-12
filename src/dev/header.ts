@@ -5,16 +5,17 @@
      / ___ \ (__| | | | |  __/\ V /  __/ | | | | |  __/ | | | |_\__ \/ ___ \|  __/| |
     /_/   \_\___|_| |_|_|\___| \_/ \___|_| |_| |_|\___|_| |_|\__|___/_/   \_\_|  |___|
 
-    AchievementsAPI mod
+    Docs: https://wiki.mineprogramming.org/index.php/InnerCore/Mods/AchievementsAPI
+    Github Repository: https://github.com/DDCompany/AchievementsAPI_PE
+    Issues Tracker: https://github.com/DDCompany/AchievementsAPI_PE/issues
 
-    Terms of Use:
-      - Forbidden to distribute the mod on third-party sources
-        without link to the official community (https://vk.com/forestry_pe)
-      - Forbidden to change the mod code
-      - Forbidden to copy the code to other mods or libraries
-      - Allowed to use the mod in any packs
-      - Using the mod you automatically agree with the described
-        above conditions
+    Terms of use:
+     - Forbidden to distribute the mod on third-party sources
+       without links to the official group (https://vk.com/forestry_pe)
+     - Forbidden to change the code of this mod
+     - Forbidden to copy the code to other mods or libraries
+     - Allowed to use the mod in any packs
+     - Using the mod you automatically agree to the conditions described above
 
     + Textures belongs to Mojang
     © DDCompany (https://vk.com/forestry_pe)
